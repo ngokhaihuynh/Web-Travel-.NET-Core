@@ -1,0 +1,197 @@
+﻿@model List<WebDuLich.ModelViews.CartItem>
+
+@{
+    ViewData["Title"] = "Giỏ hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .booking {
+        display: none;
+    }
+    .carousel {
+        display:none;
+    }
+</style>
+
+<div class="container-fluid py-4">
+    <div class="container py-4">
+        <div class="row">
+            <div>
+
+                @if (Model != null && Model.Count() > 0)
+                {
+                    <div class="cart-container">
+                        <h2 style="font-weight: 200 !important;">Giỏ hàng của bạn</h2>
+                        <table style="margin-top: 20px;;" class="cart-table">
+                            <thead>
+                                <tr>
+                                    <th>Tour</th>
+                                    <th>Thông tin tour</th>
+                                    <th>Đơn giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Thành tiền</th>
+                                    <th>Xóa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Thêm các dòng cho mỗi tour trong giỏ hàng -->
+                                @if (Model != null && Model.Count() > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        string url = $"/{item.product.ProductId}.html";
+                                        <tr>
+                                            <td><a href="@url"><img class="w-25" src="~/images/products/@item.product.Image" alt="@item.product.Title"></a></td>
+                                            <td><a style="color:black" href="@url">@item.product.ProductName</a></td>
+                                            <td>@item.product.Price.Value.ToString("#,##0") VND</td>
+                                            <td><input class="cartItem" data-mahh="@item.product.ProductId" data-dongia="@item.product.Price" type="number" value="@item.amount" min="1"></td>
+                                            <td>@item.TotalMoney.ToString("#,##0") VND</td>
+                                            <td>
+                                                <button class="removecart" data-mahh="@item.product.ProductId">Xóa</button>
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+
+
+                            </tbody>
+                        </table>
+                        <div style="margin-top: 20px;">
+
+                        </div>
+                        <div class="total">
+                            Tổng tiền: <span style="font-weight: bold;" class="text-primary">@Model.Sum(x => x.TotalMoney).ToString("#,##0") VND</span>
+                        </div>
+                        <button>
+                            <a style="color: white;" href="/">Quay lại trang chủ</a>
+                        </button>
+                        <button style="background-color: var(--primary);">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a style="color: white;" href="/checkout.html">Tiến hành thanh toán</a>
+                            }
+                            else
+                            {
+                                <a style="color: white;" href="/dang-nhap.html?returnUrl=/checkout.html">Tiến hành thanh toán</a>
+                            }
+
+
+
+                        </button>
+                    </div>
+
+                }
+                else
+                {
+                    <p>Giỏ hàng trống !</p>
+                }
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<script>
+    //   Xóa tour
+    function removeTour(button) {
+        var row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+        updateTotal();
+    }
+
+    // Cập nhật tông tiền
+    function updateTotal() {
+        var totalPrice = 0;
+        var rows = document.querySelectorAll('.cart-table tbody tr');
+        rows.forEach(function (row) {
+            var price = parseFloat(row.cells[2].textContent.replace('$', ''));
+            var quantity = parseInt(row.cells[3].querySelector('input').value);
+            var subtotal = price * quantity;
+            row.cells[4].textContent = '$' + subtotal.toFixed(2);
+            totalPrice += subtotal;
+        });
+        document.querySelector('.total').textContent = 'Tổng tiền: $' + totalPrice.toFixed(2);
+    }
+
+</script>
+
+@section Scripts{
+    <script>
+        $(function () {
+            function loadHeaderCart() {
+                $("miniCart").load("/AjaxContent/HearderCart");
+                $("NumberCart").load("AjaxContent/NumberCart");
+            }
+
+            $(document).ready(function () {
+                $(".removecart").click(function () {
+                    var productid = $(this).attr("data-mahh");
+
+                    $.ajax({
+                        url: "api/cart/remove",
+                        type: "POST",
+                        dataType: "JSON",
+                        data: {
+                            productID: productid
+                        },
+                        success: function (result) {
+                            if (result.success) {
+                                loadHeaderCart();
+                                alert("Sản phẩm sẽ được xóa khỏi giỏ hàng!");
+                                location.reload(); // Tải lại trang
+                            } else {
+                                alert("Có lỗi xảy ra khi xóa sản phẩm khỏi giỏ hàng.");
+                            }
+                        },
+                        error: function () {
+                            alert("Xóa sản phẩm khỏi giỏ hàng thất bại!");
+                        }
+                    });
+                });
+            });
+
+
+            $(".cartItem").change(function () {
+                // Lấy productID từ thuộc tính data-mahh của phần tử HTML
+                var productid = $(this).data("mahh");
+
+                // Lấy số lượng từ phần tử HTML
+                var soluong = parseInt($(this).val());
+
+                // Gửi yêu cầu AJAX để cập nhật giỏ hàng
+                $.ajax({
+                    url: "api/cart/update", // Đường dẫn tới API cập nhật giỏ hàng
+                    type: "POST",
+                    dataType: "JSON",
+                    data: {
+                        productID: productid,
+                        amount: soluong
+                    },
+                    success: function (result) {
+                        if (result.success) {
+                            // Nếu cập nhật thành công, cập nhật lại thông tin giỏ hàng trên header và chuyển hướng đến trang giỏ hàng
+                            loadHeaderCart();
+                            location.reload(); // Tải lại trang
+                        } else {
+                            // Hiển thị thông báo lỗi nếu có lỗi xảy ra
+                            alert(result.message || "Cập nhật giỏ hàng thất bại.");
+                        }
+                    },
+                    error: function () {
+                        // Hiển thị thông báo lỗi nếu có lỗi xảy ra
+                        alert("Cập nhật giỏ hàng thất bại!");
+                    }
+                });
+            });
+
+
+        });
+
+
+
+    </script>
+}

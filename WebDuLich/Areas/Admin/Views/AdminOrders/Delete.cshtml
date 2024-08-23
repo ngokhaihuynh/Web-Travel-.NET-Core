@@ -1,0 +1,102 @@
+﻿@model WebDuLich.Models.Order
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Xóa đơn hàng</h1>
+
+
+<div>
+   
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Ngày đặt hàng:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.OrderDate)</dd>
+        @*<dt class="col-sm-2">Ngày giao hàng:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.ShipDate)</dd>*@
+        <dt class="col-sm-2">Mã Trạng thái:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.TransactId)</dd>
+        @*<dt class="col-sm-2">Đã xóa:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Deteled)</dd>
+        <dt class="col-sm-2">Đã thanh toán:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Paid)</dd>
+        <dt class="col-sm-2">Ngày thanh toán:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.PaymentDate)</dd>
+        <dt class="col-sm-2">Mã thanh toán:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.PaymentId)</dd>*@
+        <dt class="col-sm-2">Ghi chú:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Note)</dd>
+        <dt class="col-sm-2">Tổng tiền:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.TotalMoney)</dd>
+        <dt class="col-sm-2">Địa chỉ:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Address)</dd>
+        @*<dt class="col-sm-2">Quận/Huyện:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.District)</dd>
+        <dt class="col-sm-2">Phường/Xã:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Ward)</dd>*@
+        <dt class="col-sm-2">Mã Khách hàng:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Cus.CusId)</dd>
+     
+     
+    </dl>
+
+    <div class="buttons">
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="OrderId" />
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </form>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+<style>
+    /* Reset CSS */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Định dạng cho danh sách thông tin */
+    .row {
+        margin-bottom: 15px;
+    }
+
+        .row dt {
+            font-weight: bold;
+        }
+
+        .row dd {
+            margin-left: 0;
+            border:1px solid #d5d5d5;
+        }
+
+    /* Canh lề cho nút và link */
+    .buttons {
+        margin-top: 20px;
+    }
+
+        .buttons .btn {
+            margin-right: 10px;
+        }
+
+    /* Định dạng cho các nút */
+    .btn {
+        padding: 8px 16px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border: 1px solid #dc3545;
+        color: #fff;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border: 1px solid #c82333;
+        }
+
+</style>

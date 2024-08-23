@@ -1,0 +1,96 @@
+﻿@model IEnumerable<WebDuLich.Models.Contact>
+
+@{
+    ViewData["Title"] = "Liên hệ";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+              Họ và tên
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Số điện thoại
+            </th>
+            <th>
+                Ngày liên hệ
+            </th>
+            <th>
+                Nội dung
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            <td>
+                
+                <a asp-action="Details" asp-route-id="@item.IdLienHe">Xem</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdLienHe">Xóa</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<style>
+    /* CSS cho bảng liên hệ */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+        .table th,
+        .table td {
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .table tbody tr:hover {
+            background-color: #e2e6ea;
+        }
+
+        .table td a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+            .table td a:hover {
+                text-decoration: underline;
+            }
+
+</style>

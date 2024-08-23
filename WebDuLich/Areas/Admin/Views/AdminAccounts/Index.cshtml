@@ -1,0 +1,128 @@
+﻿@model IEnumerable<WebDuLich.Models.Account>
+
+@{
+    ViewData["Title"] = "Danh sách tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="margin-left:30px;margin-top:20px;">
+    <a asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a>
+    <i>>></i>
+    <a asp-area="Admin" asp-controller="AdminRoles" asp-action="Index">Danh sách tài khoản</a>
+   
+</div>
+
+<div style="margin:30px 0 0 30px">
+    @*<h1>Danh sách tài khoản quản trị</h1>*@
+
+    <div style="display:flex; justify-content:space-between;">
+        <form style="font-size:18px;" action="#" method="get">
+
+            <select id="idrole" name="idrole" asp-items="ViewBag.QuyenTruyCap">
+                <option value="0" disabled selected>Chọn quyền truy cập</option>
+            </select>
+
+            <select id="idstatus" name="idstatus" asp-items="ViewBag.IsTrangThai">
+                <option value="" disabled selected>Chọn trạng thái</option>
+            </select>
+
+
+        </form>
+
+        <button style="background-color:aquamarine; font-size:18px; width:150px;margin-right:10px">
+            <a asp-action="Create">Tạo tài khoản</a>
+        </button>
+
+    </div>
+    <table style="margin-top:20px; width:100%" class="table">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Họ và tên
+                </th>
+                <th>
+                    Số điện thoại
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Lần đăng nhập cuối
+                </th>
+                <th>
+                    Quyền truy cập
+                </th>
+                <th>
+                    Trạng thái
+                </th>
+                <th>
+                    Tùy chỉnh
+                </th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var item in Model)
+                {
+            <tr style="width:100%; ">
+                <td style="text-align: center; ">
+                    @item.AccId
+                </td>
+                <td style="text-align: center;">
+                    @item.FullName
+                </td>
+                <td style="text-align: center; ">
+                    @item.Phone
+                </td>
+                <td style="text-align: center;">
+                    @item.Email
+                </td>
+                <td style="text-align: center;">
+                    @item.LastLogin
+                </td>
+                <td style="text-align: center;">
+                    @if (item.Role != null)
+                    {
+                        @item.Role.Description
+                    }
+                    else
+                    {
+                        <span>Chưa có vai trò</span>
+                    }
+                </td>
+
+                <td style="text-align: center; ">
+                    @if (item.Active == true)
+                    {
+                        <div>
+                            <span>Kích hoạt</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <span>Khóa</span>
+                        </div>
+                    }
+                </td>
+
+                <td style="text-align: center;">
+                    <a asp-action="Edit" asp-route-id="@item.AccId">Sửa</a> |
+                    <a asp-action="Details" asp-route-id="@item.AccId">Chi tiết</a> |
+                    <a asp-action="Delete" asp-route-id="@item.AccId">Xóa</a>
+                </td>
+            </tr>
+                }
+            }
+
+
+        </tbody>
+    </table>
+
+</div>

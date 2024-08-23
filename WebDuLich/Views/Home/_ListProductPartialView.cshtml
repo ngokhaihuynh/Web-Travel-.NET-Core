@@ -1,0 +1,34 @@
+﻿@model List<Product>
+@if (Model != null && Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        string url = $"/{item.ProductId}.html";
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="package-item bg-white mb-2">
+                <a href="@url">
+                    <img class="img-fluid" src="~/images/products/@item.Image" alt="">
+                </a>
+                <div class="p-4">
+                    <div class="d-flex justify-content-between mb-3">
+                        <small class="m-0"><i class="fa fa-map-marker-alt text-primary mr-2"></i>@item.Address</small>
+                       
+                        <small class="m-0"><i class="fa fa-user text-primary mr-2"></i>@item.ShortDesc</small>
+                    </div>
+                    <a class="h5 text-decoration-none" href="@url">@item.ProductName</a>
+                    <div class="border-top mt-4 pt-4">
+                        <div class="d-flex justify-content-between">
+                            
+                            <h5 class="m-0">@item.Price.Value.ToString("#,##0") VNĐ</h5>
+                        </div>
+                        
+                        <button style="display:block; margin-top:10px; border-radius:5px" class="btn btn-primary "><a style="color:white" href="@url">Xem chi tiết</a></button>
+                   
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+

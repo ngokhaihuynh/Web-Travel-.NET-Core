@@ -1,0 +1,163 @@
+﻿@model WebDuLich.Models.Customer
+
+@{
+    ViewData["Title"] = "Chi tiết";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Chi tiết khách hàng</h1>
+
+<div>
+   
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Họ và tên:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+        @*<dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Birthday)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Birthday)
+        </dd>*@
+        <dt class="col-sm-2">
+            Ảnh đại diện:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Avata)
+        </dd>
+        <dt class="col-sm-2">
+            Nơi ở:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-2">
+            Email:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            Số điện thoại:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        @*<dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.District)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.District)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ward)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ward)
+        </dd>*@
+        <dt class="col-sm-2">
+            Ngày tạo:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+        <dt class="col-sm-2">
+            Mật khẩu:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+        @*<dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Encode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Encode)
+        </dd>*@
+        <dt class="col-sm-2">
+            Lần đăng nhập cuối:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastLogin)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+        <td style="text-align:center">
+            @if (Model.Active == true)
+            {
+                <div>
+                    <span style="color:greenyellow">Kích hoạt</span>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <span style="color:red">Khóa</span>
+                </div>
+            }
+        </td>
+        @*<dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Location.LocationId)
+        </dd>*@
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.CusId">Chỉnh sửa</a> |
+    <a asp-action="Index">Quay lại danh sách</a>
+</div>
+<style>
+    /* Định dạng cho hàng trong definition list */
+    dl.row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    /* Định dạng cho cột của definition list */
+    dt.col-sm-2,
+    dd.col-sm-10 {
+        flex: 0 0 50%; /* Hiển thị 2 cột trên mỗi dòng */
+        margin-bottom: 10px; /* Khoảng cách giữa mỗi cặp dt, dd */
+    }
+
+    /* Định dạng cho nút chỉnh sửa và quay lại */
+    div.form-actions {
+        margin-top: 20px; /* Khoảng cách giữa form và các action buttons */
+    }
+
+        /* Định dạng cho nút chỉnh sửa và quay lại */
+        div.form-actions a {
+            text-decoration: none; /* Loại bỏ gạch chân */
+            margin-right: 10px; /* Khoảng cách giữa các nút */
+            padding: 5px 10px; /* Định dạng kích thước nút */
+            border: 1px solid #ccc; /* Viền nút */
+            border-radius: 4px; /* Độ cong viền nút */
+            background-color: #f0f0f0; /* Màu nền nút */
+            color: #333; /* Màu chữ */
+            transition: background-color 0.3s ease; /* Hiệu ứng chuyển đổi màu nền */
+        }
+
+            /* Định dạng khi di chuột qua nút */
+            div.form-actions a:hover {
+                background-color: #e0e0e0; /* Màu nền khi di chuột qua */
+            }
+
+    /* Định dạng cho nút xóa */
+    .btn-danger {
+        color: #fff; /* Màu chữ */
+        background-color: #dc3545; /* Màu nền */
+        border-color: #dc3545; /* Màu viền */
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333; /* Màu nền khi di chuột qua */
+            border-color: #bd2130; /* Màu viền khi di chuột qua */
+        }
+
+</style>

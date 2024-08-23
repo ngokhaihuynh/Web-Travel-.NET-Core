@@ -1,0 +1,203 @@
+﻿@model WebDuLich.ModelViews.MuaHangVM
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<WebDuLich.ModelViews.CartItem> Carts = ViewBag.GioHang;
+}
+<style>
+    .booking {
+        display: none;
+    }
+
+    .carousel {
+        display: none;
+    }
+</style>
+<div style="margin-top:20px" class="container">
+    <div class="left-column">
+        <h2 style="text-align: center;">Thông tin thanh toán</h2>
+        <form asp-controller="Checkout" asp-action="Index" class="checkout-form" id="checkoutForm" method="post">
+            @Html.AntiForgeryToken()
+            <input hidden asp-for="CusId" />
+            <label for="fname"><i class="icon fas fa-user"></i>Họ và tên:</label>
+            <input type="text" asp-for="FullName" name="firstname" placeholder="Nhập họ và tên..">
+            <span asp-validation-for="FullName" class="text-danger"></span>
+
+            <label for="email"><i class="icon fas fa-envelope"></i>Email:</label>
+            <input type="email" asp-for="Email" name="email" placeholder="Nhập email..">
+            <span asp-validation-for="Email" class="text-danger"></span>
+
+            <label for="phone"><i class="icon fas fa-phone"></i>Số điện thoại:</label>
+            <input type="tel" asp-for="Phone" name="phone" placeholder="Nhập số điện thoại..">
+            <span asp-validation-for="Phone" class="text-danger"></span>
+
+            <label for="address"><i class="icon fas fa-home"></i>Địa chỉ:</label>
+            <input type="text" asp-for="Address" name="address" placeholder="Nhập địa chỉ..">
+            <span asp-validation-for="Address" class="text-danger"></span>
+
+            <label for="tourDate"><i class="icon fas fa-calendar"></i>Ngày đi:</label>
+            <input type="date" asp-for="NgayDi" name="NgayDi" placeholder="Chọn ngày đi..">
+            <span asp-validation-for="NgayDi" class="text-danger"></span>
+
+            <div class="payment-methods">
+                <h3>Phương thức thanh toán</h3>
+                <label><input type="radio" name="payment-method" value="credit-card">Thẻ tín dụng</label>
+                <label><input type="radio" name="payment-method" value="paypal"> PayPal</label>
+                <label><input type="radio" name="payment-method" value="bank-transfer"> Chuyển khoản ngân hàng</label>
+            </div>
+
+
+            <input type="submit" value="Xác nhận thanh toán">
+        </form>
+    </div>
+    <div class="right-column">
+        <div class="summary">
+            <h3>Thông tin đặt tour</h3>
+            <div id="tourInfo">
+                @if (Carts != null && Carts.Any())
+                {
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Giá</th>
+                                <th>Tổng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Carts)
+                            {
+                                <tr>
+                                    <td>@item.product.ProductName</td>
+                                    <td>@item.amount</td>
+                                    <td>@item.product.Price.Value.ToString("#,##0") VND</td>
+                                    <td>@item.TotalMoney VND</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>Giỏ hàng của bạn đang trống.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("checkoutForm").addEventListener("submit", function () {
+        var firstName = document.getElementById("fname").value;
+        var email = document.getElementById("email").value;
+        var phone = document.getElementById("phone").value;
+        var address = document.getElementById("address").value;
+
+        var tourInfoElement = document.getElementById("tourInfo");
+        tourInfoElement.innerHTML = "<div class='tour-info'><strong>Họ và tên:</strong> " + firstName + "</div>" +
+            "<div class='tour-info'><strong>Email:</strong> " + email + "</div>" +
+            "<div class='tour-info'><strong>Số điện thoại:</strong> " + phone + "</div>" +
+            "<div class='tour-info'><strong>Địa chỉ:</strong> " + address + "</div>";
+    });
+</script>
+
+<style>
+    
+
+    .left-column,
+    .right-column {
+        flex: 1;
+        padding: 20px;
+    }
+
+    .checkout-form {
+        max-width: 400px;
+        margin: auto;
+    }
+
+    input[type=text], input[type=email], input[type=tel], select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        transition: border-color 0.3s;
+    }
+
+        input[type=text]:focus, input[type=email]:focus, input[type=tel]:focus, select:focus {
+            border-color: #4CAF50;
+        }
+
+    input[type=submit] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+        transition: background-color 0.3s;
+    }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+    label {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .icon {
+        position: relative;
+        top: 4px;
+        margin-right: 5px;
+    }
+
+    .payment-methods {
+        margin-top: 20px;
+    }
+
+        .payment-methods label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+
+        .payment-methods input[type="radio"] {
+            margin-right: 10px;
+        }
+
+    .summary {
+        background-color: #f2f2f2;
+        border-radius: 8px;
+        padding: 20px;
+    }
+
+        .summary h3 {
+            margin-top: 0;
+        }
+
+    .tour-info {
+        margin-bottom: 10px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>

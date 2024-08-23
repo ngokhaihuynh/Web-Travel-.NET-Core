@@ -1,0 +1,135 @@
+﻿   <!-- Topbar Start -->
+<div  class="container-fluid bg-light pt-3 d-none d-lg-block">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+                <div class="d-inline-flex align-items-center">
+                    <a style="margin-top:-18px; color:black" href="mailto:dulich123@gmail.com"><i class="fa fa-envelope mr-2"></i>dulich123@gmail.com</a>
+                    <p class="text-body px-3">|</p>
+                    <a  style="margin-top: -18px; color: black" href="tel:+0123456789"><i class="fa fa-phone-alt mr-2"></i>+012 345 6789</a>
+
+                </div>
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-primary px-3" href="#">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                 
+                    </a>
+                    <a class="text-primary px-3" href="#">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    
+                    @* -- *@
+
+                    @await Component.InvokeAsync("NumberCart")
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cart Modal -->
+<div id="miniCart" class="modal fade" tabindex="-1" role="dialog">
+    @await Component.InvokeAsync("HeaderCart")
+   
+</div>
+
+<!-- Topbar End -->
+<!-- Navbar Start -->
+<div  class="container-fluid position-relative nav-bar p-0">
+    <div style="z-index:10; " class="container-lg position-relative p-0 px-lg-3">
+        <nav class="navbar navbar-expand-lg bg-light navbar-light shadow-lg py-3 py-lg-0 pl-3 pl-lg-5">
+            <a href="/" style="display:flex" class="navbar-brand">
+                <img height="80" src="/assets/img/globe.png" alt="Alternate Text" />
+                <h1 style=" align-items: center; display: flex;" class="m-0 text-primary"><span class="text-dark">Du</span>Lịch</h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+                <div class="navbar-nav ml-auto py-0">
+                    <a asp-controller="Home" asp-action="Index" class="nav-item nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" ? "active" : "")">Trang chủ</a>
+
+                    <a href="/gioi-thieu.html" class="nav-item nav-link @(ViewContext.HttpContext.Request.Path == "/gioi-thieu.html" ? "active" : "")">Giới thiệu</a>
+                    @*<a href="/gioi-thieu.html" class="nav-item nav-link">Giới thiệu</a>*@
+                    <a href="/shop.html" class="nav-link @(ViewContext.HttpContext.Request.Path == "/shop.html" ? "active" : "")">Tours</a>
+
+                    @*<div class="nav-item dropdown">
+            <a href="/shop.html" class="nav-link dropdown-toggle" data-toggle="dropdown">Tours</a>
+            <div class="dropdown-menu border-0 rounded-0 m-0">
+                <a href="/shop.html" class="dropdown-item ">Du lịch trong nước</a>
+                <a asp-controller="Product" asp-action="IndexShopTour" class="dropdown-item">Du lịch ngoài nước</a>
+            </div>
+        </div>*@
+
+                    <a href="/blogs.html" class="nav-item nav-link @(ViewContext.HttpContext.Request.Path == "/blogs.html" ? "active" : "") ">Blog</a>
+
+                    @*<div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Trang</a>
+            <div class="dropdown-menu border-0 rounded-0 m-0">
+                <a asp-controller="Blog" asp-action="IndexBlog" class="dropdown-item  @(ViewContext.RouteData.Values["action"].ToString() == "IndexBlog" ? "active" : "")">Bài viết</a>
+                <a href="single.html" class="dropdown-item">Chi tiết bài viết</a>
+                <a href="destination.html" class="dropdown-item">Điểm đến</a>
+                <a href="guide.html" class="dropdown-item">Hướng dẫn viên</a>
+                <a href="testimonial.html" class="dropdown-item">Bình luận</a>
+            </div>
+        </div>*@
+
+                    <a href="/lien-he.html" class="nav-item nav-link @(ViewContext.HttpContext.Request.Path == "/lien-he.html" ? "active" : "")">Liên hệ</a>
+
+
+                    @*<a href="/Tim-kiem.html" class="nav-item nav-link">Tìm kiếm</a>*@
+                    <a href="/Xem-tour.html" class="nav-item nav-link @(ViewContext.HttpContext.Request.Path == "/Xem-tour.html" ? "active" : "")">
+                        <i class="fa-solid fa-magnifying-glass "></i>
+
+                    </a>
+
+                    @* Quan ly tài khoản *@
+                    <div class="nav-item dropdown">
+                        <a href="#" style="font-size:20px" class="nav-link dropdown-toggle" data-toggle="dropdown"><ion-icon name="person-circle-outline"></ion-icon></a>
+                        <div style="" class="dropdown-menu border-0 rounded-0 m-0">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <span><a style="color: black; margin-left: 10px" href="/tai-khoan-cua-toi.html">Tài khoản của tôi</a></span>
+                            }
+                            else
+                            {
+                                <span><a style="color: black; display: block; margin-left: 10px" href="/dang-ky.html">Đăng ký</a></span>
+                                <span><a style="color: black; margin-left: 10px" href="/dang-nhap.html">Đăng Nhập</a></span>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+    </div>
+</div>
+<!-- Navbar End -->
+<style>
+    #cart-icon {
+        position: relative;
+    }
+
+    #cart-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+    }
+
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .cart-item .delete-btn {
+            color: red;
+            cursor: pointer;
+        }
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />

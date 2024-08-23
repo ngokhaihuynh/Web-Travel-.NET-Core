@@ -1,0 +1,190 @@
+﻿@model WebDuLich.Models.Order
+
+@{
+    ViewData["Title"] = "Chỉnh sửa";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<div style="margin-top: 30px; margin-left: 30px">
+    <h1>Chỉnh sửa Đơn hàng</h1>
+
+    <div>
+
+        <hr />
+       
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="OrderId" />
+            <div class="form-group">
+                <label asp-for="CusId" class="control-label">Mã Khách hàng</label>
+                <select asp-for="CusId" class="form-control" asp-items="ViewBag.CusId"></select>
+                <span asp-validation-for="CusId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderDate" class="control-label">Ngày đặt hàng</label>
+                <input asp-for="OrderDate" class="form-control" />
+                <span asp-validation-for="OrderDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NgayDi" class="control-label">Ngày Đi</label>
+                <input asp-for="NgayDi" class="form-control" />
+                <span asp-validation-for="NgayDi" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="ShipDate" class="control-label">Ngày giao hàng</label>
+            <input asp-for="ShipDate" class="form-control" />
+            <span asp-validation-for="ShipDate" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <label asp-for="TransactId" class="control-label">Trạng thái</label>
+                <select asp-for="TransactId" class="form-control" asp-items="ViewBag.TransactId"></select>
+                <span asp-validation-for="TransactId" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="Status" class="control-label">Trạng thái</label>
+            <input asp-for="Status" class="form-control" />
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>*@
+            @*<div class="form-group">
+            <label asp-for="Deteled" class="control-label">Đã xóa</label>
+            <input asp-for="Deteled" class="form-control" />
+            <span asp-validation-for="Deteled" class="text-danger"></span>
+        </div>*@
+            @*<div class="form-group">
+            <label asp-for="Paid" class="control-label">Đã thanh toán</label>
+            <input asp-for="Paid" class="form-control" />
+            <span asp-validation-for="Paid" class="text-danger"></span>
+        </div>*@
+            @*<div class="form-group">
+            <label asp-for="PaymentDate" class="control-label">Ngày thanh toán</label>
+            <input asp-for="PaymentDate" class="form-control" />
+            <span asp-validation-for="PaymentDate" class="text-danger"></span>
+        </div>*@
+            @*<div class="form-group">
+            <label asp-for="PaymentId" class="control-label">Phương thức thanh toán</label>
+            <input asp-for="PaymentId" class="form-control" />
+            <span asp-validation-for="PaymentId" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <label asp-for="Note" class="control-label">Ghi chú</label>
+                <input asp-for="Note" class="form-control" />
+                <span asp-validation-for="Note" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalMoney" class="control-label">Tổng tiền</label>
+                <input asp-for="TotalMoney" class="form-control" />
+                <span asp-validation-for="TotalMoney" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label">Địa chỉ</label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="District" class="control-label">Quận/Huyện</label>
+            <input asp-for="District" class="form-control" />
+            <span asp-validation-for="District" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Ward" class="control-label">Phường/Xã</label>
+            <input asp-for="Ward" class="form-control" />
+            <span asp-validation-for="Ward" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Quay lại danh sách</a>
+</div>
+
+<style>
+    /* Canh lề cho nội dung */
+    .container {
+        margin: 20px auto;
+        max-width: 800px;
+    }
+
+    /* Định dạng cho các tiêu đề */
+    h1, h4 {
+        color: #333;
+    }
+
+    /* Định dạng cho danh sách chi tiết */
+    dl.row {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 20px;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    dd {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    /* Định dạng cho các liên kết */
+    .action-links {
+        margin-top: 20px;
+    }
+
+        .action-links a {
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f0f0f0;
+            color: #333;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+            .action-links a:hover {
+                background-color: #ddd;
+            }
+
+    /* Định dạng cho input và label */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #66afe9;
+            box-shadow: 0 0 8px 0 rgba(102, 175, 233, 0.6);
+        }
+
+    input[type="submit"] {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+</style>
+

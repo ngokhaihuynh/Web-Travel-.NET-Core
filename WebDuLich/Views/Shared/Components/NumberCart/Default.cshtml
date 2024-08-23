@@ -1,0 +1,19 @@
+﻿@model List<WebDuLich.ModelViews.CartItem>
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="ml-3 position-relative">
+        <a href="#" class="text-primary px-3" id="cart-icon">
+            <i class="fa fa-shopping-cart"></i>
+            <span id="cart-count" class="badge badge-pill badge-danger">@Model.Count()</span>
+        </a>
+    </div>
+}
+else
+{
+    <div class="ml-3 position-relative">
+        <a href="#" class="text-primary px-3" id="cart-icon">
+            <i class="fa fa-shopping-cart"></i>
+            <span id="cart-count" class="badge badge-pill badge-danger">0</span>
+        </a>
+    </div>
+}

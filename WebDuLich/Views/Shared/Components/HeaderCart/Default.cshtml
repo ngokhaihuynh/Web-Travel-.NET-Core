@@ -1,0 +1,59 @@
+﻿@model List<WebDuLich.ModelViews.CartItem>
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Giỏ Hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul id="cart-items" class="list-group">
+                    <!-- Cart items will be appended here dynamically -->
+                    @foreach (var item in Model)
+                    {
+                        string url = $"/{item.product.ProductId}.html";
+                        <li style="margin-top:12px;display:flex;">
+                            <a href="@url">
+                                <img style="width:70px; height:70px;" src="~/images/products/@item.product.Image" alt="@item.product.ProductName" />
+                            </a>
+                            <div style="margin-left: 20px;">
+                                <a href="@url">@item.product.ProductName</a>
+                                <span style="margin-left:20px">@item.amount x @item.product.Price.Value.ToString("#,##0") VND</span>
+
+                            </div>
+                        </li>
+                    }
+                </ul>
+                
+                <span style="float:right"><span>Tổng tiền: </span>  <span style="font-weight:bold;color:red">@Model.Sum(x => x.TotalMoney).ToString("#,##0") VND</span> </span>
+            </div>
+            <div class="modal-footer">
+                <a href="/cart.html" class="btn btn-primary">Đến Trang Giỏ Hàng</a>
+
+                <a class="btn btn-success" href="/dang-nhap.html?returnUrl=/checkout.html">Tiến hành thanh toán</a>
+
+
+
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Giỏ Hàng rỗng</h5>
+
+            </div>
+            <div class="modal-footer">
+                <a href="/shop.html" class="btn btn-primary">Đến Trang Đặt Tour</a>
+
+            </div>
+
+        </div>
+    </div>
+}

@@ -1,0 +1,77 @@
+﻿@model List<Order>
+@if (Model != null && Model.Count() > 0)
+{
+    <div style="width:100%">
+        <div class="cart-container">
+            <h2 style="font-weight: 200 !important;">Giỏ hàng của bạn</h2>
+            <table style="margin-top: 20px;" class="cart-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Ngày đặt tour</th>
+                        <th>Ngày đi:</th>
+                        <th>Trạng thái đơn hàng</th>
+                        <th>Thành tiền</th>
+                        <th>Xóa</th>
+                    </tr>
+                </thead>
+              
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        
+                        <td>@item.OrderId</td>
+                        <td>@item.OrderDate</td>
+                        <td>@item.NgayDi</td>
+                        <td>@item.Transact.Status</td>
+                        <td>@item.TotalMoney.ToString("#,##0") VND</td>
+                        <td><button onclick="removeTour(this)">Xóa</button></td>
+                    </tr>
+                    }
+                    <!-- Thêm các dòng cho mỗi tour trong giỏ hàng -->
+
+
+                </tbody>
+            </table>
+            <div style="margin-top: 20px;">
+
+            </div>
+            
+            <button>
+                <a style="color: white;" href="/">Quay lại trang chủ</a>
+            </button>
+           
+        </div>
+    </div>
+}
+else
+{
+    <p>Chưa có đơn hàng !</p>
+}
+
+
+
+<script>
+    //   Xóa tour
+    function removeTour(button) {
+        var row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+        updateTotal();
+    }
+
+    // Cập nhật tông tiền
+    function updateTotal() {
+        var totalPrice = 0;
+        var rows = document.querySelectorAll('.cart-table tbody tr');
+        rows.forEach(function (row) {
+            var price = parseFloat(row.cells[2].textContent.replace('$', ''));
+            var quantity = parseInt(row.cells[3].querySelector('input').value);
+            var subtotal = price * quantity;
+            row.cells[4].textContent = '$' + subtotal.toFixed(2);
+            totalPrice += subtotal;
+        });
+        document.querySelector('.total').textContent = 'Tổng tiền: $' + totalPrice.toFixed(2);
+    }
+
+</script>

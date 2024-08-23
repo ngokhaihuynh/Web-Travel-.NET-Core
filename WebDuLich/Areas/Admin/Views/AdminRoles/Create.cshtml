@@ -1,0 +1,47 @@
+﻿@model WebDuLich.Models.Role
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="margin-left:30px;margin-top:20px;">
+    <a asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a>
+    <i>>></i>
+    <a asp-area="Admin" asp-controller="AdminRoles" asp-action="Index">Danh sách quyền truy cập</a>
+    <i>>></i>
+    <span>Tạo tài khoản</span>
+</div>
+
+<div style="margin-left:30px; margin-top:20px;">
+
+    <h1>Tạo tài khoản</h1>
+
+    <hr />
+    <div style="margin-top:20px;" class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label class="control-label">Tên tài khoản:</label>
+                    <input asp-for="RoleName" class="form-control" />
+                    <span asp-validation-for="RoleName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Loại tài khoản:</label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Tạo tài khoản" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Quay lại</a>
+    </div>
+
+
+</div>

@@ -1,0 +1,160 @@
+﻿<ul class="sidebar-list">
+    <!-- --------sidebar------- -->
+    <li>
+        <div class="title">
+            <a style="color:black" href="/Admin" class="link">
+                <i class='radiant-icon bx bxs-home'></i>
+                <span class="name">Dashboard</span>
+            </a>
+
+        </div>
+
+    </li>
+
+    @* Quản lý hệ thống *@
+    <li class="dropdown">
+        <div class="title">
+            <span class="link">
+                <i class='radiant-icon bx bxs-cog'></i>
+                <span class="name">Quản lí hệ thống</span>
+            </span>
+            <i class='bx bxs-chevron-down'></i>
+        </div>
+        <div class="submenu">
+            <a asp-area="Admin" asp-controller="AdminAccounts" asp-action="Index" class="link">Quản lí tài khoản</a>
+            <a asp-area="Admin" asp-controller="AdminCategories" asp-action="Index" class="link">Quản lí danh mục</a>
+            <a asp-area="Admin" asp-controller="AdminRoles" asp-action="Index" class="link">Quản lí quyền truy cập</a>
+
+
+        </div>
+
+    </li>
+    @* Quản lý khách hàng *@
+    <li class="dropdown">
+        <div class="title">
+            <span class="link">
+                <i class='radiant-icon bx bxs-user'></i>
+                <span class="name">Quản lí khách hàng</span>
+            </span>
+            <i class='bx bxs-chevron-down'></i>
+        </div>
+        <div class="submenu">
+            <a asp-area="Admin" asp-controller="AdminCustomers" asp-action="Index" class="link">Danh sách khách hàng</a>
+
+
+        </div>
+    </li>
+
+    @* Quản lý tour du lịch *@
+    <li class="dropdown">
+        <div class="title">
+            <a style="color:black" class="link">
+                <i class='radiant-icon bx bxs-planet'></i>
+                <span class="name">Quản lí Tour</span>
+            </a>
+            <i class='bx bxs-chevron-down'></i>
+        </div>
+        <div class="submenu">
+            <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Index" class="link">Danh sách Tour</a>
+
+
+        </div>
+    </li>
+
+    @*Quản lý đơn hàng*@
+    <li class="dropdown">
+        <div class="title">
+            <a style="color:black" asp-area="Admin" asp-controller="AdminOrders" asp-action="Index" class="link">
+                <i class='radiant-icon bx bxs-cart-alt'></i>
+                <span class="name">Quản lí đơn hàng</span>
+            </a>
+
+        </div>
+        @*<div class="submenu">
+                <a href="#" class="link">Đơn hàng</a>
+                <a href="#" class="link">sản phẩm</a>
+
+            </div>*@
+    </li>
+
+
+    @* Quản lý Page *@
+    <li class="dropdown">
+        <div class="title">
+            <span class="link">
+                <i class='radiant-icon bx bxs-book-alt'></i>
+                <span class="name">Quản lí Page</span>
+            </span>
+            <i class='bx bxs-chevron-down'></i>
+        </div>
+        <div class="submenu">
+            <a asp-area="Admin" asp-controller="AdminPages" asp-action="Index" class="link">Danh sách Page</a>
+
+        </div>
+    </li>
+
+    @* Quản lý tin tức *@
+    <li class="dropdown">
+        <div class="title">
+            <span class="link">
+                <i class='radiant-icon bx bxs-news'></i>
+                <span class="name">Quản lý tin tức</span>
+            </span>
+            <i class='bx bxs-chevron-down'></i>
+        </div>
+        <div class="submenu">
+            <a asp-area="Admin" asp-controller="AdminNews" asp-action="Index" class="link">Danh sách Tin tức</a>
+
+        </div>
+    </li>
+
+    <li class="dropdown">
+        <div class="title">
+            <a style="color:black" asp-area="Admin" asp-controller="AdminContacts" asp-action="Index" class="link">
+                <i class='radiant-icon  bx bxs-id-card'></i>
+                <span class="name">Quản lí liên hệ</span>
+            </a>
+
+        </div>
+
+        @* Cài đặt *@
+        @*<li class="dropdown">
+                <div class="title">
+                    <span class="link">
+                        <i class='bx bx-book-alt'></i>
+                        <span class="name">Cài đặt</span>
+                    </span>
+                    <i class='bx bxs-chevron-down'></i>
+                </div>
+                <div class="submenu">
+                    <a href="#" class="link">cài đặt</a>
+                    <a href="#" class="link">ngôn ngữ</a>
+
+                </div>
+            </li>
+
+            <li class="dropdown">
+                <div class="title">
+                    <a href="#" class="link">
+                        <i class='bx bx-face'></i>
+                        <span class="name">Tài khoản</span>
+                    </a>
+                    <i class='bx bxs-chevron-down'></i>
+                </div>
+                <div class="submenu">
+                    <a href="#" class="link">Quản lí tài khoản</a>
+                    <a href="#" class="link">Đăng xuất</a>
+
+                </div>
+            </li>*@
+
+</ul>
+<style>
+    .radiant-icon {
+        background: linear-gradient(45deg, #35BBCA, #F8D90F);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 48px;
+        font-weight: bold;
+    }
+</style>

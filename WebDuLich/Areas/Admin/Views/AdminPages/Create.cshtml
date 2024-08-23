@@ -1,0 +1,98 @@
+﻿@model WebDuLich.Models.Page
+
+@{
+    ViewData["Title"] = "Tạo Page: ";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<h1>Tạo trang</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="AdminPages" asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PageName" class="control-label">Tên trang:</label>
+                <input asp-for="PageName" class="form-control" />
+                <span asp-validation-for="PageName" class="text-danger"></span>
+            </div>
+            <div style="width:90%" class="form-group">
+                <label asp-for="Contents" class="control-label">Nội dung:</label>
+                <textarea asp-for="Contents" id="txtContent" rows="10" class="form-control">@Model.Contents</textarea>
+                <span asp-validation-for="Contents" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Image" class="control-label">Ảnh đại diện:</label>
+                <input asp-for="Image" name="fImage" type="file" class="form-control">
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Publish" class="control-label">Trạng thái:</label>
+                <input asp-for="Publish" class="form-control" />
+                <span asp-validation-for="Publish" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label">Tiêu đề:</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MetaDesc" class="control-label">Meta Desc:</label>
+                <input asp-for="MetaDesc" class="form-control" />
+                <span asp-validation-for="MetaDesc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MetaKey" class="control-label">Meta Key:</label>
+                <input asp-for="MetaKey" class="form-control" />
+                <span asp-validation-for="MetaKey" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatDate" class="control-label">Ngày tạo:</label>
+                <input asp-for="CreatDate" class="form-control" />
+                <span asp-validation-for="CreatDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Tạo" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<style>
+    .control-label {
+        display: block;
+        margin-top: 20px;
+    }
+
+    .form-control {
+        width: 90%;
+    }
+</style>
+
+
+@section Scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
+    <script>
+
+        ClassicEditor
+            .create(document.querySelector('#txtContent'), {
+                // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(err => {
+                console.error(err.stack);
+            });
+    </script>
+}   

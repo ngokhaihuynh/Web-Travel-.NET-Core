@@ -1,0 +1,380 @@
+﻿@model WebDuLich.Models.Product
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<hr />
+<div class="row">
+    <div style="margin:30px 0 0 30px;" class="col-md-4">
+        <form asp-controller="AdminProducts" asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProductName" class="control-label">Tên Tour:</label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShortDesc" class="control-label">Số người:</label>
+                <input asp-for="ShortDesc" class="form-control" />
+                <span asp-validation-for="ShortDesc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label">Địa điểm:</label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div style="width:90%" class="form-group">
+                <label class="control-label">Mô tả:</label>
+                <textarea asp-for="Description" id="txtDes" rows="100" class="form-control">@Model.Description</textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CatId" class="control-label">Danh mục</label>
+                <select asp-for="CatId" asp-items="ViewBag.DanhMuc">
+                    <option value="" disabled selected>Chọn danh mục</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label">Giá Tour:</label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Discount" class="control-label">Discount:</label>
+                <input asp-for="Discount" class="form-control" />
+                <span asp-validation-for="Discount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label">Ảnh đại diện:</label>
+                <input asp-for="Image" name="fImage" type="file" class="form-control" onchange="previewImage(event, 'previewMainImage')">
+                <span asp-validation-for="Image" class="text-danger"></span>
+                <!-- Hiển thị trước xem ảnh đại diện -->
+                
+            </div>
+            <div>
+                <img style="width:100px" id="previewMainImage" class="img-fluid w-25 thumbnail mt-2" src="~/images/default.jpg" alt="">
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Images" class="control-label">Ảnh khác:</label>
+                <input asp-for="Images" name="fImages" type="file" class="form-control" multiple>
+                <span asp-validation-for="Images" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div id="preview-images" style="display: flex; flex-wrap: wrap;"></div>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="Video" class="control-label">Video:</label>
+            <input asp-for="Video" type="file" class="form-control" />
+            <span asp-validation-for="Video" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <label asp-for="CreateDate" class="control-label">Ngày tạo:</label>
+                <input asp-for="CreateDate" class="form-control" />
+                <span asp-validation-for="CreateDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateModified" class="control-label">Ngày sửa</label>
+                <input asp-for="CreateModified" class="form-control" />
+                <span asp-validation-for="CreateModified" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BestSeller" class="control-label">Tour nổi bật:</label>
+                <label>OFF</label>
+                <label class="switch">
+                    <input type="checkbox" id="BestSellerCheckbox">
+                    <span for="BestSeller" class="slider round"></span>
+                </label>
+                <label>ON</label>
+                <!-- Trường ẩn để lưu trữ giá trị của checkbox -->
+                <input type="hidden" asp-for="BestSeller" id="BestSellerHiddenField" />
+            </div>
+            <div class="form-group">
+                <label asp-for="HomeFlag" class="control-label">Hiển thị trang chủ:</label>
+                <label>OFF</label>
+                <label class="switch">
+                    <input type="checkbox" id="HomeFlagCheckbox">
+                    <span for="HomeFlag" class="slider round"></span>
+                </label>
+                <label>ON</label>
+                <!-- Trường ẩn để lưu trữ giá trị của checkbox -->
+                <input type="hidden" asp-for="HomeFlag" id="HomeFlagHiddenField" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Actice" class="control-label">Trạng thái:</label>
+                <label>OFF</label>
+                <label class="switch">
+                    <input type="checkbox" id="acticeCheckbox">
+                    <span for="Actice" class="slider round"></span>
+                </label>
+                <label>ON</label>
+                <!-- Trường ẩn để lưu trữ giá trị của checkbox -->
+                <input type="hidden" asp-for="Actice" id="acticeHiddenField" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Tags" class="control-label">Từ khóa</label>
+                <input asp-for="Tags" class="form-control" />
+                <span asp-validation-for="Tags" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label">Thời gian</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StockingTour" class="control-label">Tour trống:</label>
+                <input asp-for="StockingTour" class="form-control" />
+                <span asp-validation-for="StockingTour" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div style="margin-left:30px;">
+    <a asp-action="Index">Quay lại</a>
+</div>
+
+<style>
+    /* Định dạng các nhóm phần tử */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    /* Định dạng nhãn */
+    .control-label {
+        font-weight: 400;
+        display: block;
+    }
+
+    /* Định dạng input và select */
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    select {
+        width: 90%;
+        padding: 10px;
+        border: 1px solid #ced4da; /* Màu viền */
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    /* Định dạng nút */
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Màu nền khi hover */
+        }
+
+    /* Định dạng link */
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    /* Định dạng trường input kiểu file */
+    .form-control-file {
+        width: 90%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    /* Định dạng nút tải lên */
+    .upload-btn {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .upload-btn:hover {
+            background-color: #0056b3;
+        }
+
+    /* Thông báo lỗi */
+    .text-danger {
+        color: #dc3545; /* Màu đỏ */
+        font-size: 14px;
+    }
+
+    /* Switch container */
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 52px;
+        height: 30px;
+    }
+
+        /* Hide default HTML checkbox */
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+    /* Slider */
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+            /* On state */
+            .slider.round:before {
+                position: absolute;
+                content: "";
+                height: 22px;
+                width: 22px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+                border-radius: 50%;
+            }
+
+    /* Checked (on) state */
+    input:checked + .slider.round {
+        background-color: #007bff;
+    }
+
+        input:checked + .slider.round:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+    /* Preview images */
+    #preview-images img {
+        max-width: 100px;
+        margin: 10px;
+    }
+</style>
+
+
+
+@section Scripts {
+    <script>
+        // Hàm xem trước ảnh khi người dùng chọn ảnh
+        function previewImage(event, previewId) {
+            var input = event.target;
+            var preview = document.getElementById(previewId);
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var bestSellerCheckbox = document.getElementById("BestSellerCheckbox");
+            var homeFlagCheckbox = document.getElementById("HomeFlagCheckbox");
+            var acticeCheckbox = document.getElementById("acticeCheckbox");
+            var bestSellerHiddenField = document.getElementById("BestSellerHiddenField");
+            var homeFlagHiddenField = document.getElementById("HomeFlagHiddenField");
+            var acticeHiddenField = document.getElementById("acticeHiddenField");
+
+            // Xác định trạng thái ban đầu của ô checkbox BestSeller
+            bestSellerHiddenField.value = bestSellerCheckbox.checked ? "true" : "false";
+
+            // Xác định trạng thái ban đầu của ô checkbox HomeFlag
+            homeFlagHiddenField.value = homeFlagCheckbox.checked ? "true" : "false";
+
+            // Xác định trạng thái ban đầu của ô checkbox Actice
+            acticeHiddenField.value = acticeCheckbox.checked ? "true" : "false";
+
+            // Cập nhật giá trị của trường ẩn khi ô checkbox BestSeller thay đổi
+            bestSellerCheckbox.addEventListener("change", function () {
+                bestSellerHiddenField.value = this.checked ? "true" : "false";
+            });
+
+            // Cập nhật giá trị của trường ẩn khi ô checkbox HomeFlag thay đổi
+            homeFlagCheckbox.addEventListener("change", function () {
+                homeFlagHiddenField.value = this.checked ? "true" : "false";
+            });
+
+            // Cập nhật giá trị của trường ẩn khi ô checkbox Actice thay đổi
+            acticeCheckbox.addEventListener("change", function () {
+                acticeHiddenField.value = this.checked ? "true" : "false";
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var input = document.querySelector('input[name="fImages"]');
+            var preview = document.getElementById('preview-images');
+
+            input.addEventListener('change', function () {
+                preview.innerHTML = ''; // Clear existing previews
+
+                for (var i = 0; i < input.files.length; i++) {
+                    var file = input.files[i];
+
+                    if (file && file.type.match('image.*')) {
+                        var reader = new FileReader();
+
+                        reader.onload = (function (f) {
+                            return function (e) {
+                                var img = document.createElement('img');
+                                img.src = e.target.result;
+                                preview.appendChild(img);
+                            };
+                        })(file);
+
+                        reader.readAsDataURL(file);
+                    }
+                }
+            });
+        });
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#txtDes'), {
+                // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(err => {
+                console.error(err.stack);
+            });
+    </script>
+}

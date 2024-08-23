@@ -1,0 +1,138 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.PagedList<WebDuLich.Models.Category>
+@*@model PagedList.Core.IPagedList<WebDuLich.Models.Page>*@
+
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Danh sách Danh mục Tour - Trang:" + ViewBag.CurrentPage;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<div style="margin-left:30px;margin-top:20px;">
+    <a asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a>
+    <i>>></i>
+    <a asp-area="Admin" asp-controller="AdminPages" asp-action="Index">Danh sách Danh mục Tour : page @ViewBag.CurrentPage</a>
+
+</div>
+
+<div style="margin:30px 0 0 30px">
+    @*<h1>Index</h1>*@
+    <div style="display:flex; justify-content:space-between;">
+        <form style="font-size:18px;" action="#" method="get">
+
+            <select id="idrole" name="idrole" asp-items="ViewBag.QuyenTruyCap">
+                <option value="0" disabled selected>Chọn quyền truy cập</option>
+            </select>
+
+            <select id="idstatus" name="idstatus" asp-items="ViewBag.IsTrangThai">
+                <option value="" disabled selected>Chọn trạng thái</option>
+            </select>
+
+
+        </form>
+
+        <button style="background-color:aquamarine; font-size:18px; width:150px;margin-right:10px">
+            <a asp-action="Create">Thêm Danh Mục</a>
+        </button>
+
+    </div>
+    <table style="margin-top:20px; width:100%" class="table">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Tên danh mục
+                </th>
+                @*<th>
+                    Sắp xếp
+                </th>*@
+                <th>
+                    Trạng thái
+                </th>
+                <th>
+                    tùy chỉnh
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var item in Model)
+                {
+            <tr>
+                <td style="text-align: center; ">
+                    @item.CatId
+                </td>
+                <td style="text-align: center; ">
+                    @item.CatName
+                </td>
+                @*<td style="text-align: center; ">
+                    @item.Location
+                </td>*@
+
+                <td style="text-align: center; ">
+                    @if (item.Publish == true)
+                    {
+                        <div>
+                            <span>Kích hoạt</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <span>Khóa</span>
+                        </div>
+                    }
+
+
+                <td style="text-align: center; ">
+                    <a asp-action="Edit" asp-route-id="@item.CatId">Sửa </a> |
+                    <a asp-action="Details" asp-route-id="@item.CatId">Xem</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CatId">Xóa</a>
+                </td>
+                <td style="text-align: center; "></td>
+            </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+    <style>
+        .pagination {
+            display: block;
+            margin-top: 100px;
+        }
+
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+        }
+
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+        }
+    </style>
+
+    <div class="pagination">
+        <a href="#">&laquo;</a>
+        <a href="#" class="active">1</a>
+        <a href="#">2</a>
+        <a href="#">&raquo;</a>
+    </div>
+</div>
+

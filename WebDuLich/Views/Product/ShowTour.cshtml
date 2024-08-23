@@ -1,0 +1,88 @@
+﻿@model IEnumerable<WebDuLich.Models.Product>
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<div class="container-fluid booking mt-5 pb-5">
+    <div class="container pb-5">
+        <div class="bg-light shadow" style="padding: 30px;">
+            <form asp-action="ShowTour" method="get" class="form-inline">
+                <div class="row align-items-center" style="min-height: 60px;">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="mb-3 mb-md-0">
+                                    <select asp-items="ViewBag.CategoryId" name="CategoryId" class="custom-select px-4" style="height: 47px;">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="mb-3 mb-md-1">
+                                    <select asp-items="ViewBag.Addresses" name="address" class="custom-select px-4" style="height: 47px;">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary btn-block" type="submit" style="height: 47px;width:100px; margin-top: -2px;">Đồng ý</button>
+                    </div>
+                </div>
+            </form>
+         
+            <table style="margin-top:50px" class="table">
+               
+                <thead>
+                    <tr>
+                        <th>
+                            Hình ảnh
+                        </th>
+                        <th>
+                            Tên tour
+                        </th>
+                        <th>
+                            Giá tour
+                        </th>
+                        <th>
+                            Địa điểm
+                        </th>
+                        <!-- Các cột khác -->
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        string url = $"/{item.ProductId}.html";
+                        <tr>
+                            <td>
+                                <a href="@url">  <img width="100" src="/images/products/@item.Image" alt="@item.ProductName" /></a>
+                            </td>
+                            <td>
+                                <a style="color:black" href="@url">  @Html.DisplayFor(modelItem => item.ProductName)</a>
+                            </td>
+                            <td>
+                               @item.Price.Value.ToString("#,##0") VND
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <!-- Các cột khác -->
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    <style>
+        .container {
+            margin-top: 100px;
+        }
+    </style>
+
+
+   
+   

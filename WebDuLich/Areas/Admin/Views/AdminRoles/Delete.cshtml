@@ -1,0 +1,43 @@
+﻿@model WebDuLich.Models.Role
+
+@{
+    ViewData["Title"] = "Xóa tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="margin-left:30px;margin-top:20px;">
+    <a asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a>
+    <i>>></i>
+    <a asp-area="Admin" asp-controller="AdminRoles" asp-action="Index">Danh sách quyền truy cập</a>
+    <i>>></i>
+    <span>Xóa tài khoản</span>
+</div>
+
+
+<div style="margin-left:30px;">
+    <h1>Xóa tài khoản</h1>
+    <h3>Bạn có chắc chắn muốn xóa tài khoản?</h3>
+    <div>
+        <hr />
+        <div class="row">
+            <lable style="display:block">
+                ID:  <span style="color:red;">@Model.RoleId</span>
+            </lable>
+
+            <lable style="display:block">
+                Tên tài khoản: <span style="color:red;">@Model.RoleName</span>
+            </lable>
+            <lable style="display:block">
+                Loại Tài khoản:  <span style="color:red;">@Model.Description</span>
+            </lable>
+
+        </div>
+
+        <form style="margin-top:10px;" asp-action="Delete">
+            <input type="hidden" asp-for="RoleId" />
+            <input style="background-color:deepskyblue; color:red; cursor:pointer; font-size: 18px;border-radius:4px;width:150px" type="submit" value="Xóa tài khoản" class="btn btn-danger" /> |
+            <a style="font-size:18px" asp-action="Index">Quay lại</a>
+        </form>
+    </div>
+
+</div>

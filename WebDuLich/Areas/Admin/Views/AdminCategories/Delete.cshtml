@@ -1,0 +1,85 @@
+﻿@model WebDuLich.Models.Category
+
+@{
+    ViewData["Title"] = "Xác nhận xóa danh mục";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<div style="margin-left:30px;">
+    <h1 style="font-weight:500;">Xóa danh mục : @Model.CatName</h1>
+
+    <div>
+
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                Tên danh mục:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CatName)
+            </dd>
+            @*<dt class="col-sm-2">
+               Mô tả:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-2">
+               ID danh mục cha:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ParentId)
+            </dd>
+            <dt class="col-sm-2">
+               Cấp danh mục:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Levels)
+            </dd>
+            <dt class="col-sm-2">
+               thứ tự sắp xếp:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Location)
+            </dd>*@
+            <dt class="col-sm-2">
+                Trạng thái:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Publish)
+            </dd>
+            @*<dt class="col-sm-2">
+                Ảnh đại diện:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Image)
+            </dd>
+            <dt class="col-sm-2">
+               Tiêu đề:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>*@
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="CatId" />
+            <input type="submit" value="Xác nhận xóa" class="btn btn-danger" /> |
+            <a asp-action="Index">Quay lại</a>
+        </form>
+    </div>
+
+</div>
+
+<style>
+    dd {
+        border: 1px solid #808080;
+        width: 90%;
+    }
+
+    dt {
+        margin-top: 20px;
+        line-height: 30px;
+        font-weight: bold;
+    }
+</style>

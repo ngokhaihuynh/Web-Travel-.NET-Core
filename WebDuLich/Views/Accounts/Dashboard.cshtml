@@ -1,0 +1,213 @@
+﻿@model WebDuLich.Models.Customer
+
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Order> DanhSachDonHang = ViewBag.Donhang;
+    WebDuLich.ModelViews.ChangePasswordViewModel changePassword = new WebDuLich.ModelViews.ChangePasswordViewModel();
+}
+
+
+<style>
+    .booking {
+        display: none;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Giỏ hàng -->
+<div style="display:flex; margin-top:30px">
+    <div class="custom-sidebar">
+        <a href="javascript:void(0)" onclick="showSection('account-info')">Thông tin tài khoản</a>
+        <a href="javascript:void(0)" onclick="showSection('my-orders')">Đơn hàng của tôi</a>
+        <a href="javascript:void(0)" onclick="showSection('address')">Danh sách đơn hàng</a>
+        <a href="javascript:void(0)" onclick="showSection('phone')">Thay đổi mật khẩu</a>
+        <a href="javascript:void(0)" onclick="showSection('details')">Thông tin chi tiết</a>
+    </div>
+    <div class="custom-content">
+        <div id="account-info" class="custom-section active">
+            <div class="custom-header">Thông tin tài khoản</div>
+            <dl class="row">
+                <dt class="col-sm-2">Họ và tên:</dt>
+                <dd class="col-sm-10"> @Html.DisplayFor(model => model.FullName)</dd>
+                <dt class="col-sm-2">Email:</dt>
+                <dd class="col-sm-10"> @Html.DisplayFor(model => model.Email)</dd>
+                <dt class="col-sm-2">Số điện thoại:</dt>
+                <dd class="col-sm-10"> @Html.DisplayFor(model => model.Phone)</dd>
+                <dt class="col-sm-2">Mã tài khoản:</dt>
+                <dd class="col-sm-10"> @Html.DisplayFor(model => model.Salt)</dd>
+            </dl>
+        </div>
+        <div id="my-orders" class="custom-section">
+            <div class="custom-header">Đơn hàng của tôi</div>
+            <div class="container-fluid py-4">
+                <div class="container py-4">
+                    <div class="row">
+                        @await Html.PartialAsync("_DonhangPartialView", DanhSachDonHang)
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div id="address" class="custom-section">
+            <div class="custom-header">Danh sách đơn hàng</div>
+            @if (DanhSachDonHang != null && DanhSachDonHang.Count() > 0)
+            {
+                <div class="row">
+                    <table style="margin-top: 20px;" class="cart-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                @*<th>Tên Tour</th>*@
+                                <th>Ngày đặt tour</th>
+                                @*<th>Đơn giá</th>*@
+                                <th>Trạng thái đơn hàng</th>
+                                <th>Thành tiền</th>
+                                <th>Xóa</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in DanhSachDonHang)
+                            {
+                                <tr>
+                                    <td>@item.OrderId</td>
+                                   
+                                    <td>@item.OrderDate</td>
+
+                                    <td>@item.Transact.Status</td>
+                                    @*<td><input type="number" value="1" min="1"></td>*@
+                                    <td>@item.TotalMoney.ToString("#,##0") VND</td>
+                                    <td><button class="xemdonhang" data-madonhang="@item.OrderId">Xem đơn hàng</button></td>
+                                </tr>
+                            }
+                            <!-- Thêm các dòng cho mỗi tour trong giỏ hàng -->
+
+
+                        </tbody>
+                    </table>
+
+                    <div id="records_table">
+
+                    </div>
+
+
+                </div>
+            }
+            else
+            {
+                <p>Chưa có đơn hàng!</p>
+            }
+        </div>
+        <div id="phone" class="custom-section">
+            <div class="custom-header">Thay đổi mật khẩu</div>
+            @await Html.PartialAsync("_ChangePaswordPartialView", changePassword)
+        </div>
+        <div id="details" class="custom-section">
+            <div class="custom-header">Thông tin chi tiết</div>
+            <p>Chi tiết bổ sung về người dùng hoặc đơn hàng.</p>
+            <p>Nội dung chi tiết khác có thể được thêm vào đây.</p>
+        </div>
+    </div>
+</div>
+
+
+
+<div style="text-align:center">
+    <p>xin chào, @Model.FullName <a href="/dang-xuat.html">Đăng xuất</a></p>
+</div>
+<style>
+    .custom-sidebar {
+        width: 250px;
+        background-color: #454d55;
+        padding-top: 20px;
+    }
+
+        .custom-sidebar a {
+            display: block;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+            width: 250px
+        }
+
+            .custom-sidebar a:hover {
+                background-color: #17a2b8;
+            }
+
+    .custom-content {
+        padding: 20px;
+    }
+
+    .custom-section {
+        display: none;
+    }
+
+        .custom-section.active {
+            display: block;
+        }
+
+    .custom-header {
+        background-color: #17a2b8;
+        color: white;
+        padding: 15px;
+        text-align: center;
+    }
+</style>
+<script>
+    // Xóa tour
+    function removeTour(button) {
+        var row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+        updateTotal();
+    }
+
+    // Cập nhật tổng tiền
+    function updateTotal() {
+        var totalPrice = 0;
+        var rows = document.querySelectorAll('.cart-table tbody tr');
+        rows.forEach(function (row) {
+            var price = parseFloat(row.cells[2].textContent.replace('$', ''));
+            var quantity = parseInt(row.cells[3].querySelector('input').value);
+            var subtotal = price * quantity;
+            row.cells[4].textContent = '$' + subtotal.toFixed(2);
+            totalPrice += subtotal;
+        });
+        document.querySelector('.total').textContent = 'Tổng tiền: $' + totalPrice.toFixed(2);
+    }
+
+    // Hiển thị phần nội dung
+    function showSection(sectionId) {
+        const sections = document.querySelectorAll('.custom-section');
+        sections.forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(sectionId).classList.add('active');
+    }
+</script>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".xemdonhang").click(function () {
+                var madonhang = $(this).attr("data-madonhang");
+                $.ajax({
+                    url: '/DonHang/Details',
+                    datatype: "json",
+                    type: "POST",
+                    data: { id: madonhang },
+                    async: true,
+                    success: function (results) {
+                        $("#records_table").html("");
+                        $("#records_table").html("results");
+                    },
+                    error: function (xhr) {
+                        alert('Lỗi!')
+                    }
+                });
+            });
+        });
+    </script>
+}

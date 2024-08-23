@@ -1,0 +1,159 @@
+﻿@model WebDuLich.Models.Order
+
+@{
+    ViewData["Title"] = "Chi tiết đơn hàng #" + Model.OrderId;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<Orderdetail> orderdetails = ViewBag.ChiTiet;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="card" id="invoice">
+    <div class="card-body">
+        <h5 class="card-title">Thông tin đơn hàng</h5>
+
+       
+        <div class="order-info">
+            <div class="info-item">
+                <span class="info-label">Mã đơn hàng:</span>
+                <span>#000<span>@Model.OrderId</span> </span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Khách hàng:</span>
+                <span>@Model.Cus.FullName</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Địa chỉ:</span>
+                <span>@Model.Address</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Số điện thoại:</span>
+                <span>@Model.Cus.Phone</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Ngày đặt hàng:</span>
+                <span>@Model.OrderDate</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Ngày đi:</span>
+                <span>@Model.NgayDi</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Trạng thái:</span>
+                <span>@Model.Transact.Status</span>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" class="col-sm-4">ID</th>
+                    <th scope="col" class="col-sm-8">Tên sản phẩm</th>
+                    <th scope="col" class="col-sm-4">Số lượng</th>
+                    <th scope="col" class="col-sm-8">Giá</th>
+                    <th scope="col" class="col-sm-8">Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (orderdetails != null && orderdetails.Count() > 0)
+                {
+                    int i = 1;
+                    decimal totalAmount = 0; // Variable to accumulate the total amount
+                    foreach (var item in orderdetails)
+                    {
+                        string url = $"/{item.Product.ProductId}.html";
+                        <tr>
+                            <th>@i</th>
+                            <th><a href="#">@item.Product.ProductName</a></th>
+                            <th>@item.Quantity</th>
+                            <th>@item.Price.Value.ToString("#,##0") VND</th>
+                            <th>@item.Total.Value.ToString("#,##0") VND</th>
+                        </tr>
+                        totalAmount += item.Total.Value; // Add the item's total to the accumulated total
+                        i++;
+                    }
+
+                    // Display the total amount
+                    <tr>
+                        <th colspan="4">Tổng tiền:</th>
+                        <th style="align-items:center; color:red">@totalAmount.ToString("#,##0") VND</th>
+                    </tr>
+                }
+                <!-- Và các thông tin khác tương tự -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.OrderId" class="btn btn-primary">Chỉnh sửa</a>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+    <button style="width:200px; height18px; background-color:aqua" onclick="printInvoice()" class="btn btn-success">In hóa đơn</button>
+</div>
+
+<style>
+    .card {
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+
+    .btn {
+        margin-right: 10px;
+    }
+
+    .order-info {
+        margin-bottom: 20px;
+    }
+
+    .info-item {
+        margin-bottom: 10px;
+    }
+
+    .info-label {
+        font-weight: bold;
+        margin-right: 10px;
+        display: inline-block;
+        width: 200px; /* Độ rộng của nhãn */
+    }
+</style>
+
+<script>
+    function printInvoice() {
+        var printContents = document.getElementById('invoice').innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+
+        window.print();
+
+        document.body.innerHTML = originalContents;
+        location.reload();
+    }
+</script>

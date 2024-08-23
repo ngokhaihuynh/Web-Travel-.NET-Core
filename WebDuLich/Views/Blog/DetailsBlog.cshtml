@@ -1,0 +1,100 @@
+﻿@model WebDuLich.Models.News
+
+@{
+    ViewData["Title"] = Model.Tile;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string url = $"/tintuc/{Model.PostId}.html";
+    List<News> Baivietlienquan = ViewBag.lsBaiVietLienQuan;
+}
+
+<style>
+    .booking {
+        display: none;
+    }
+
+    .carousel {
+        display: none;
+    }
+    .page-header {
+        display:none
+    }
+    img {
+        width: 100%;
+        vertical-align: middle;
+        border-style: none;
+    }
+</style>
+<!-- Blog Start -->
+<div style="margin-top:50px" class="container-fluid">
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-lg-8">
+                
+                <!-- Blog Detail Start -->
+                <div class="pb-3">
+                 
+                    <div class="blog-item">
+                        <div class="position-relative">
+                            <img class="img-fluid w-100" src="~/images/news/@Model.Image" alt="@Model.Tile">
+
+                        </div>
+                    </div>
+                    <div class="bg-white mb-3" style="padding: 30px;">
+                        <div class="d-flex mb-3">
+                            <a class="text-primary text-uppercase text-decoration-none" href="">@Model.CreateDate</a>
+                            <span class="text-primary px-2">|</span>
+                            <a class="text-primary text-uppercase text-decoration-none" href="">@Model.Author</a>
+                        </div>
+                        <h1 class="mb-3">@Model.Tile</h1>
+                        <h4 class="mb-3">@Model.ShortContent</h4>
+
+                        @Html.Raw(Model.Contents)
+                    </div>
+                </div>
+                <!-- Blog Detail End -->
+             
+            </div>
+
+            <div class="col-lg-4 mt-5 mt-lg-0">
+
+
+                <!-- Search Form -->
+                
+
+
+                <!-- bài viết liên quan Recent Post -->
+                <div class="mb-5">
+                    <h4 class="text-uppercase mb-4" style="letter-spacing: 5px;">Bài viết liên quan</h4>
+                    @if (Baivietlienquan != null && Baivietlienquan.Count() > 0)
+                    {
+                        foreach (var item in Baivietlienquan)
+                        {
+                            string _url = $"/tintuc/{item.PostId}.html";
+                            <a class="d-flex align-items-center text-decoration-none bg-white mb-3" href="@_url">
+                                <img style="width:100px; height:80px;" class="img-fluid" src="~/images/news/@item.Image" alt="@item.Tile">
+                                <div class="pl-3">
+                                    <h6 class="m-1">@item.Tile</h6>
+                                    <small>@item.CreateDate</small>
+                                </div>
+                            </a>
+                        }
+                    }
+
+
+                </div>
+
+                <!-- Tag Cloud -->
+                <div class="mb-5">
+                    <h4 class="text-uppercase mb-4" style="letter-spacing: 5px;">THẺ</h4>
+                    <div class="d-flex flex-wrap m-n1">
+                      
+                        <a href="" class="btn btn-light m-1">@Model.Tags</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Blog End -->

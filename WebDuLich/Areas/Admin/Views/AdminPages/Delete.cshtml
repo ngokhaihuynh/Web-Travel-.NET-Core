@@ -1,0 +1,85 @@
+﻿@model WebDuLich.Models.Page
+
+@{
+    ViewData["Title"] = "Xác nhận xóa Page";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<div style="margin-left:30px;">
+    <h1 style="font-weight:500" >Xóa Page: @Model.PageName</h1>
+
+    <div>
+      
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                Tên trang:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PageName)
+            </dd>
+            <dt class="col-sm-2">
+                Nội dung:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.Raw(Model.Contents)
+            </dd>
+            <dt class="col-sm-2">
+                Ảnh đại diện:
+            </dt>
+            <dd class="col-sm-10">
+                <img width="200" ; height="200" src="~/images/pages/@Model.Image" alt="@Model.Title" />
+            </dd>
+            <dt class="col-sm-2">
+                Trạng thái:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Publish)
+            </dd>
+            <dt class="col-sm-2">
+                Tiêu đề:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            @*<dt class="col-sm-2">
+                Meta desc:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MetaDesc)
+            </dd>
+            <dt class="col-sm-2">
+                Meta key:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MetaKey)
+            </dd>*@
+            <dt class="col-sm-2">
+                Ngày tạo:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreatDate)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="PageId" />
+            <input type="submit" value="Xác nhận xóa" class="btn btn-danger" /> |
+            <a asp-action="Index">Quay lại</a>
+        </form>
+    </div>
+
+</div>
+
+<style>
+    dd {
+        border: 1px solid #808080;
+        width: 90%;
+    }
+
+    dt {
+        margin-top: 20px;
+        line-height: 30px;
+        font-weight: bold;
+    }
+</style>

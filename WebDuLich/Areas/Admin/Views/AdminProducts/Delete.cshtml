@@ -1,0 +1,202 @@
+﻿@model WebDuLich.Models.Product
+
+@{
+    ViewData["Title"] = "Xóa san phẩm: " + Model.ProductName;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<div style="margin-top:30px; margin-left:30px">
+    <h1>Chi tiết Tour: @Model.ProductName</h1>
+
+    <div>
+
+        <hr />
+      
+        <dl class="row">
+
+            <dt class="col-sm-2">
+                Tên tour:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ProductName)
+            </dd>
+            <dt class="col-sm-2">
+                Mô tả ngắn:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ShortDesc)
+            </dd>
+            <dt class="col-sm-2">
+                Mô tả dài:
+            </dt>
+            <dd class="col-sm-10">
+               
+                @Html.Raw(Model.Description)
+            </dd>
+            <dt class="col-sm-2">
+                Giá Tours:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Discount)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Discount)
+            </dd>
+            <dt class="col-sm-2">
+                Ảnh đại diện Tours:
+            </dt>
+            <dd class="col-sm-10">
+                <img width="200" ; height="200" src="~/images/products/@Model.Image" alt="@Model.Title" />
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Video)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Video)
+            </dd>
+
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreateModified)
+            </dd>
+            <dt class="col-sm-2">
+                BestSeller:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.BestSeller)
+            </dd>
+            <dt class="col-sm-2">
+                HomeFlag
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.HomeFlag)
+            </dd>
+            <dt class="col-sm-2">
+                Trạng thái:
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.Actice == true)
+                {
+                    <div>
+                        <span style="color: #009688">Kích hoạt</span>
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        <span style="color: #009688">không Kích hoạt</span>
+                    </div>
+                }
+
+            </dd>
+            <dt class="col-sm-2">
+                Tags:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Tags)
+            </dd>
+            <dt class="col-sm-2">
+                Tiêu đề:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt class="col-sm-2">
+                Số tour trống:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.StockingTour)
+            </dd>
+            <dt class="col-sm-2">
+                Danh mục:
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.Cat != null)
+                {
+                    @Model.Cat.CatName
+                }
+
+            </dd>
+            <dt class="col-sm-2">
+                Ngày tạo:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreateDate)
+            </dd>
+            <dt class="col-sm-2">
+                Ngày sửa:
+            </dt>
+           
+           
+            <dd class="col-sm-10">
+                <form asp-controller="AdminProducts" asp-action="Delete" asp-route-id="@Model.ProductId">
+                    <input type="hidden" asp-for="ProductId" />
+                    <input type="submit" value="Xác nhận xóa" class="btn btn-danger" /> |
+                    <a asp-action="Index">Back to List</a>
+                </form>
+            </dd>
+
+        </dl>
+    </div>
+
+</div>
+<style>
+    /* Canh lề cho nội dung */
+    .container {
+        margin: 20px auto;
+        max-width: 800px;
+    }
+
+    /* Định dạng cho các tiêu đề */
+    h1, h4 {
+        color: #333;
+    }
+
+    /* Định dạng cho danh sách chi tiết */
+    dl.row {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 20px;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    dd {
+        margin-right:20px;
+        border: 1px solid #d5d5d5;
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    /* Định dạng cho các liên kết */
+    .action-links {
+        margin-top: 20px;
+    }
+
+        .action-links a {
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f0f0f0;
+            color: #333;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+            .action-links a:hover {
+                background-color: #ddd;
+            }
+</style>
+
+
+
+
+

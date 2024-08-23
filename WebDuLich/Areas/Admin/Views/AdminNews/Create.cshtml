@@ -1,0 +1,333 @@
+﻿@model WebDuLich.Models.News
+
+@{
+    ViewData["Title"] = "Thêm mới tin tức";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<div style="margin-left:30px;">
+
+    <h1 style="font-weight:500;">Thêm mới tin tức</h1>
+
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Tile" class="control-label">Tiêu đề:</label>
+                    <input asp-for="Tile" class="form-control" />
+                    <span asp-validation-for="Tile" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ShortContent" class="control-label">Mô tả ngắn:</label>
+                    <input asp-for="ShortContent" class="form-control" />
+                    <span asp-validation-for="ShortContent" class="text-danger"></span>
+                </div>
+
+
+
+
+
+                <div style="width:90%" class="form-group">
+                    <label asp-for="Contents" class="control-label">Nội dung:</label>
+                    <textarea asp-for="Contents" id="txtContent" class="form-control">@Model.Contents</textarea>
+                    <span asp-validation-for="Contents" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Image" class="control-label">Ảnh đại diện:</label>
+                    <input asp-for="Image" name="fImage" type="file" class="form-control">
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+               
+
+                <div class="form-group">
+                    <label asp-for="Publish" class="control-label">Trạng thái:</label>
+                    <label class="switch">
+                        <input type="checkbox" id="PublishCheckbox">
+                        <span for="Publish" class="slider round"></span>
+                    </label>
+                    <label>Mở</label>
+                    <!-- Trường ẩn để lưu trữ giá trị của checkbox -->
+                    <input type="hidden" asp-for="Publish" id="PublishHiddenField" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CreateDate" class="control-label">Ngày tạo:</label>
+                    <input asp-for="CreateDate" class="form-control" />
+                    <span asp-validation-for="CreateDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Author" class="control-label">Tác giả:</label>
+                    <input asp-for="Author" class="form-control" />
+                    <span asp-validation-for="Author" class="text-danger"></span>
+                </div>
+                @*<div class="form-group">
+                    <label asp-for="CatId" class="control-label">Danh mục:</label>
+                    <select asp-for="CatId" class="form-control" asp-items="ViewBag.CatId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AccId" class="control-label">Tên tài khoản:</label>
+                    <select asp-for="AccId" class="form-control" asp-items="ViewBag.AccId"></select>
+                </div>*@
+                <div class="form-group">
+                    <label asp-for="Tags" class="control-label">Tags:</label>
+                    <input asp-for="Tags" class="form-control" />
+                    <span asp-validation-for="Tags" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group">
+                    <label asp-for="IsHot" class="control-label">Tin Hot:</label>
+                    <label class="switch">
+                        <input type="checkbox" id="IsHotCheckbox">
+                        <span for="IsHot" class="slider round"></span>
+                    </label>
+                    <label>IsHot</label>
+                    <!-- Trường ẩn để lưu trữ giá trị của checkbox -->
+                    <input type="hidden" asp-for="IsHot" id="IsHotrHiddenField" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="IsNewFeed" class="control-label"></label>
+                    <label class="switch">
+                        <input type="checkbox" id="IsNewFeedCheckbox">
+                        <span for="IsNewFeed" class="slider round"></span>
+                    </label>
+                    <label>IsNewFeed</label>
+                    <!-- Trường ẩn để lưu trữ giá trị của checkbox -->
+                    <input type="hidden" asp-for="IsNewFeed" id="IsNewFeedHiddenField" />
+                </div>
+
+                @*<div class="form-group">
+                    <label asp-for="MetaDesc" class="control-label">Meta desc:</label>
+                    <input asp-for="MetaDesc" class="form-control" />
+                    <span asp-validation-for="MetaDesc" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MetaKey" class="control-label">Meta key:</label>
+                    <input asp-for="MetaKey" class="form-control" />
+                    <span asp-validation-for="MetaKey" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Views" class="control-label">Lượt xem</label>
+                    <input asp-for="Views" class="form-control" />
+                    <span asp-validation-for="Views" class="text-danger"></span>
+                </div>*@
+                <div class="form-group">
+                    <input type="submit" value="Tạo" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Quay lại</a>
+    </div>
+</div>
+
+
+<style>
+    .control-label {
+        display: block;
+        margin-top: 20px;
+    }
+
+    .form-control {
+        width: 90%;
+    }
+</style>
+<style>
+    /* Định dạng các nhóm phần tử */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    /* Định dạng nhãn */
+    .control-label {
+        font-weight: 400;
+        display: block;
+    }
+
+    /* Định dạng input và select */
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    select {
+        width: 90%;
+        padding: 10px;
+        border: 1px solid #ced4da; /* Màu viền */
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    /* Định dạng nút */
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Màu nền khi hover */
+        }
+
+    /* Định dạng link */
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    /* Định dạng trường input kiểu file */
+    .form-control-file {
+        width: 90%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    /* Định dạng nút tải lên */
+    .upload-btn {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .upload-btn:hover {
+            background-color: #0056b3;
+        }
+
+    /* Thông báo lỗi */
+    .text-danger {
+        color: #dc3545; /* Màu đỏ */
+        font-size: 14px;
+    }
+
+    /* Switch container */
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 52px;
+        height: 30px;
+    }
+
+        /* Hide default HTML checkbox */
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+    /* Slider */
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+            /* On state */
+            .slider.round:before {
+                position: absolute;
+                content: "";
+                height: 22px;
+                width: 22px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+                border-radius: 50%;
+            }
+
+    /* Checked (on) state */
+    input:checked + .slider.round {
+        background-color: #007bff;
+    }
+
+        input:checked + .slider.round:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+</style>
+@* Script để cập nhật trường ẩn khi ô checkbox thay đổi *@
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var bestSellerCheckbox = document.getElementById("IsHotCheckbox");
+            var homeFlagCheckbox = document.getElementById("PublishCheckbox");
+            var acticeCheckbox = document.getElementById("IsNewFeedCheckbox");
+            var bestSellerHiddenField = document.getElementById("IsHotrHiddenField");
+            var homeFlagHiddenField = document.getElementById("PublishHiddenField");
+            var acticeHiddenField = document.getElementById("IsNewFeedHiddenField");
+
+            // Xác định trạng thái ban đầu của ô checkbox BestSeller
+            IsHotrHiddenField.value = IsHotCheckbox.checked ? "true" : "false";
+
+            // Xác định trạng thái ban đầu của ô checkbox HomeFlag
+            PublishHiddenField.value = homeFlagCheckbox.checked ? "true" : "false";
+
+            // Xác định trạng thái ban đầu của ô checkbox Actice
+            IsNewFeedHiddenField.value = acticeCheckbox.checked ? "true" : "false";
+
+            // Cập nhật giá trị của trường ẩn khi ô checkbox BestSeller thay đổi
+            IsHotCheckbox.addEventListener("change", function () {
+                bestSellerHiddenField.value = this.checked ? "true" : "false";
+            });
+
+            // Cập nhật giá trị của trường ẩn khi ô checkbox HomeFlag thay đổi
+            PublishCheckbox.addEventListener("change", function () {
+                homeFlagHiddenField.value = this.checked ? "true" : "false";
+            });
+
+            // Cập nhật giá trị của trường ẩn khi ô checkbox Actice thay đổi
+            IsNewFeedCheckbox.addEventListener("change", function () {
+                acticeHiddenField.value = this.checked ? "true" : "false";
+            });
+        });
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
+    <script>
+
+        ClassicEditor
+            .create(document.querySelector('#txtContent'), {
+               
+                // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(err => {
+                console.error(err.stack);
+            });
+    </script>
+
+
+    
+}

@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>@ViewData["Title"]</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="~/assets/img/globe.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="~/assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Topbar Start  ở đay-->
+
+    @await Html.PartialAsync("_HeaderPartialView.cshtml")
+    
+    <!-- Carousel Start - gioi thieu - banner - chỉ hiển thị ở index-->
+    @if (ViewContext.RouteData.Values["action"].ToString() == "Index")
+    {
+        <!-- Hiển thị -->
+        @await Html.PartialAsync("_HeaderCarouselView.cshtml")
+
+    }
+    else if (ViewContext.RouteData.Values["action"].ToString() == "About")
+    {
+
+        @await Html.PartialAsync("HeaderOptionView.cshtml")
+    }
+
+    else if (ViewContext.RouteData.Values["action"].ToString() == "Contact")
+    {
+
+        @await Html.PartialAsync("HeaderOptionView.cshtml")
+    }
+
+    else if (ViewContext.RouteData.Values["action"].ToString() == "IndexBlog")
+    {
+
+        @await Html.PartialAsync("HeaderOptionView.cshtml")
+    }
+    else if (ViewContext.RouteData.Values["action"].ToString() == "DetailsBlog")
+    {
+
+        @await Html.PartialAsync("HeaderOptionView.cshtml")
+    }
+    else if (ViewContext.RouteData.Values["action"].ToString() == "IndexShopTour")
+    {
+
+        @await Html.PartialAsync("HeaderOptionView.cshtml")
+    }
+
+    <!-- Carousel End -->
+    <!-- Booking Start  -  đat nơi-->
+    @await Html.PartialAsync("_HeaderBookingPartialView.cshtml")
+
+    <!-- Booking End -->
+
+
+    @RenderBody()
+
+    <!-- Footer -->
+    @await Html.PartialAsync("_FooterPartialView.cshtml")
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    @*<script src="lib/easing/easing.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/tempusdominus/js/moment.min.js"></script>
+        <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+        <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>*@
+
+
+    <!-- Template Javascript -->
+    <script src="~/assets/js/main.js"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    @RenderSection("Scripts", required: false)
+
+</body>
+<script>
+    let cart = [];
+    const cartIcon = document.getElementById('cart-icon');
+    const cartCount = document.getElementById('cart-count');
+    const cartItems = document.getElementById('cart-items');
+
+    function addToCart(product) {
+        cart.push(product);
+        updateCartCount();
+        updateCartItems();
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        updateCartCount();
+        updateCartItems();
+    }
+
+    function updateCartCount() {
+        cartCount.textContent = cart.length;
+    }
+
+    function updateCartItems() {
+        cartItems.innerHTML = '';
+        cart.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.className = 'list-group-item cart-item';
+            li.innerHTML = `
+                ${item.name} - $${item.price}
+                <span class="delete-btn" data-index="${index}">&times;</span>
+            `;
+            cartItems.appendChild(li);
+        });
+
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const index = button.getAttribute('data-index');
+                removeFromCart(index);
+            });
+        });
+    }
+
+    // Example product addition
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', () => {
+            const product = {
+                name: button.dataset.name,
+                price: button.dataset.price
+            };
+            addToCart(product);
+        });
+    });
+
+    // Show cart modal
+    cartIcon.addEventListener('click', () => {
+        $('#miniCart').modal('show');
+    });
+</script>
+
+</html>
+
+<style>
+    html{
+        font-family:Arial;
+    }
+</style>

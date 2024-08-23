@@ -1,0 +1,47 @@
+﻿@model WebDuLich.Models.Role
+
+@{
+    ViewData["Title"] = "Sửa tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="margin-left:30px">
+    <a asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a>
+    <i>>></i>
+    <a asp-area="Admin" asp-controller="AdminRoles" asp-action="Index">Danh sách quyền truy cập</a>
+    <i>>></i>
+    <span>Chỉnh sửa quyền truy cập</span>
+</div>
+
+<div style="margin-left:30px;">
+    <h1>Sửa tài khoản</h1>
+    <hr />
+    <div style="margin-top:20px;" class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit" asp-route-id="@Model.RoleId">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="RoleId" />
+                <div  class="form-group">
+                    <label style="display:block;"  class="control-label">Tên tài khoản:</label>
+                    <input style="display:block; font-size:20px;" asp-for="RoleName" class="form-control" placeholder="Role Name" />
+                    <span asp-validation-for="RoleName" class="text-danger"></span>
+                </div>
+                <div style="margin-top:20px;" class="form-group">
+                    <label style="display:block;" class="control-label">Loại tài khoản:</label>
+                    <input style="display: block; font-size: 20px;" asp-for="Description" class="form-control" placeholder="Description" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div style="margin-top:10px;" class="form-group">
+                    <input style="font-size:18px; color: palegreen; background-color:dodgerblue; width:150px;; border-radius:4px;" type="submit" value="Lưu thay đổi" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div style=" margin-top: 10px;">
+        <a style="font-size:18px;" asp-action="Index">Quay lại</a>
+    </div>
+
+
+</div>
+

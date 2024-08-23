@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "ContactConfirmation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="display: block; text-align: center; color: green;">
+    Tin nhắn của bạn đã được gửi thành công!
+    <br>
+    <button onclick="backToHomePage()">Quay về trang chủ</button>
+</div>
+<script>
+    function showSuccessMessage() {
+        var successMessage = document.getElementById("successMessage");
+        successMessage.style.display = "block";
+    }
+
+    function backToHomePage() {
+        window.location.href = "/"; // Điều hướng đến trang chủ của bạn
+    }
+</script>

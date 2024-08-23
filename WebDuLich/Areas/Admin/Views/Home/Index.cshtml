@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Admin Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="container">
+    <h1>Báo cáo thống kê</h1>
+    @*<div class="filters">
+        <label for="date">Thời Gian:</label>
+        <input type="date" id="date">
+        <button onclick="filterData()">Lọc</button>
+    </div>*@
+    <div class="stats">
+        @*<p>Lượt Xem: <span id="totalViews">0</span></p>*@
+        <p>Doanh thu: <span style="color:red; font-weight:bold" id="totalRevenue">@ViewBag.TotalRevenue.ToString("#,##0") VND</span></p>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function filterData() {
+            // Lấy giá trị ngày từ input
+            var date = document.getElementById("date").value;
+
+        }
+    </script>
+}

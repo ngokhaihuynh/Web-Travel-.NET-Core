@@ -1,0 +1,50 @@
+﻿@model List<Product>
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="txt-center">
+                @item.ProductId
+            </td>
+            <td class="txt-center">
+                @item.ProductName
+            </td>
+            <td class="txt-center">
+                @item.Cat?.CatName
+            </td>
+            <td class="txt-center">
+                @string.Format("{0:#,##0} VND", item.Price)
+
+
+
+            </td>
+            <td class="txt-center">
+                @item.StockingTour
+
+            </td>
+            <td class="txt-center">
+                @if (item.StockingTour.HasValue && item.StockingTour.Value > 0)
+                {
+                    <div>
+                        <span>Còn tour</span>
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        <span>Hết tour</span>
+                    </div>
+                }
+            </td>
+
+
+            <td class="txt-center" class="txt-center">
+                <a asp-action="Edit" asp-route-id="@item.ProductId">Sửa</a> |
+                <a asp-action="Details" asp-route-id="@item.ProductId">Chi tiết</a> |
+                <a asp-action="Delete" asp-route-id="@item.ProductId">Xóa</a>
+            </td>
+        </tr>
+    }
+}

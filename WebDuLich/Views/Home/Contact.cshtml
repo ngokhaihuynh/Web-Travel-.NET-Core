@@ -1,0 +1,53 @@
+﻿@model WebDuLich.Models.Contact
+@{
+    ViewData["Title"] = "Thông tin liên hệ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Contact Start -->
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="text-center mb-3 pb-3">
+            <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Liên hệ</h6>
+            <h1>Liên hệ nếu có bất kỳ câu hỏi nào</h1>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="contact-form bg-white" style="padding: 30px;">
+                    <div id="success"></div>
+                    <form asp-controller="Home" asp-action="Contact" method="post">
+                        <div class="form-row">
+                            <div class="control-group col-sm-6">
+                                <input asp-for="FullName" type="text" class="form-control p-4" id="name" placeholder="Họ và tên"
+                                       required="required" data-validation-required-message="Please enter your name" />
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="control-group col-sm-6">
+                                <input asp-for="Email" type="email" class="form-control p-4" id="email" placeholder="Email"
+                                       required="required" data-validation-required-message="Please enter your email" />
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <input asp-for="Phone" type="tel" class="form-control p-4" id="subject" placeholder="Số điện thoại"
+                                   required="required" data-validation-required-message="Please enter a subject" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+
+                        <div class="control-group">
+                            <textarea asp-for="Note" class="form-control py-3 px-4" rows="5" id="message" placeholder="Nội dung"
+                                      required="required"
+                                      data-validation-required-message="Please enter your message"></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary py-3 px-4" type="submit" id="sendMessageButton">Gửi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact End -->

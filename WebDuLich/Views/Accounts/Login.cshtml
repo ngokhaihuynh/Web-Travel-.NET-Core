@@ -1,0 +1,118 @@
+﻿@model WebDuLich.ModelViews.LoginViewModel
+@{
+    ViewData["Title"] = "Đăng nhập";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- CSS Notyf -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+<!-- JavaScript Notyf -->
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
+<style>
+    .booking {
+        display: none;
+    }
+</style>
+<div class="container-fluid py-4">
+    <div class="container py-4">
+        <div class="row">
+            <div class="form-container">
+                <!-- Đăng nhập -->
+                <div class="login-container">
+                    <h2>Đăng nhập</h2>
+                    <form asp-action="Login" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="email" asp-for="UserName" placeholder="Email" required>
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                        <div class="password-container">
+                            <input type="password" asp-for="Password" placeholder="Mật khẩu" id="password" required>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <i class="toggle-password" onclick="togglePasswordVisibility('password')">👁️</i>
+                        </div>
+
+                        @*<input type="password" asp-for="Password" placeholder="Mật khẩu" required>
+        <span asp-validation-for="Password" class="text-danger"></span>*@
+                        <button type="submit">Đăng nhập</button>
+
+
+
+
+                        @*<p style="margin-top: 20px;">Hoặc đăng nhập bằng:</p>
+        <button style="background-color:#315091;" onclick="loginWithFacebook()">
+            <i class="fa-brands fa-facebook"></i>
+            <a style="color: white;" href="#">Facebook</a>
+        </button>
+        <button style="background-color:#e14b33; margin-top: 10px;" onclick="loginWithGoogle()">
+            <i class="fa-brands fa-google-plus-g"></i>
+            <a style="color: white;" href="#">Google</a>
+        </button>*@
+                        @*<p style="margin-top: 10px; color: blue; cursor: pointer;" onclick="showForgotPassword()">Quên mật khẩu?</p>*@
+                    </form>
+                    <p style="cursor: pointer;">
+                        <a style="color: blue;" href="/dang-ky.html">Chưa có tài khoản? Đăng ký ngay</a>
+                    </p>
+                </div>
+                <!-- Quên mật khẩu -->
+                <div class="forgot-password-container" style="display: none;">
+                    <h2>Quên mật khẩu</h2>
+                    <form id="forgotPasswordForm">
+                        <input type="email" placeholder="Nhập email của bạn" required>
+                        <button type="submit">Gửi yêu cầu</button>
+                    </form>
+                    <p style="color: blue; margin-top: 10px; cursor: pointer;" onclick="showLogin()">Quay lại đăng nhập</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showLogin() {
+        document.querySelector('.login-container').style.display = 'block';
+        document.querySelector('.forgot-password-container').style.display = 'none';
+    }
+
+    function showForgotPassword() {
+        document.querySelector('.login-container').style.display = 'none';
+        document.querySelector('.forgot-password-container').style.display = 'block';
+    }
+
+    function loginWithFacebook() {
+        alert('Đăng nhập bằng Facebook');
+    }
+
+    function loginWithGoogle() {
+        alert('Đăng nhập bằng Google');
+    }
+</script>
+<script>
+    function togglePasswordVisibility(id) {
+        var passwordField = document.getElementById(id);
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    }
+</script>
+<style>
+    .password-container {
+        position: relative;
+        display: inline-block;
+        width:100%;
+    }
+
+        .password-container input {
+            padding-right: 30px; /* Make space for the eye icon */
+        }
+
+    .toggle-password {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+</style>

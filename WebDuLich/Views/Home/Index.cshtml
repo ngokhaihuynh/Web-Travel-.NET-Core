@@ -1,0 +1,236 @@
+﻿@model WebDuLich.ModelViews.HomeViewVM
+
+@{
+    ViewData["Title"] = "Du lịch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Product> allProduct = ViewBag.AllProducts;
+}
+
+
+<!-- About Start -->
+<div class="container-fluid py-5">
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col-lg-6" style="min-height: 500px;">
+                <div class="position-relative h-100">
+                    <img class="position-absolute w-100 h-100" src="~/assets/img/gioithieu.jpg" style="object-fit: cover;">
+                </div>
+            </div>
+            <div class="col-lg-6 pt-5 pb-lg-5">
+                <div class="about-text bg-white p-4 p-lg-5 my-lg-5">
+                    <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Về chúng tôi</h6>
+                    
+                    <p>
+
+                        Chúng tôi cung cấp các gói tour tốt nhất phù hợp với ngân sách của bạn, 
+                        mang lại những trải nghiệm tuyệt vời và giá trị đáng giá.
+                        Hãy để chúng tôi đồng hành cùng bạn trong những chuyến phiêu lưu đầy thú vị và đáng nhớ!
+                    </p>
+                    <div class="row mb-4">
+                        <div class="col-6">
+                            <img class="img-fluid" src="~/assets/img/gioithieu-sea.jpg" alt="">
+                        </div>
+                        <div class="col-6">
+                            <img class="img-fluid" src="~/assets/img/beach.jpg" alt="">
+                        </div>
+                    </div>
+                    <a href="/shop.html" class="btn btn-primary mt-1">Đặt ngay</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+<!-- Feature Start - về chúng tôi-->
+<div class="container-fluid pb-5">
+    <div class="container pb-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="d-flex mb-4 mb-lg-0">
+                    <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-primary mr-3" style="height: 100px; width: 100px;">
+                        <i class="fa fa-2x fa-money-check-alt text-white"></i>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <h5 class="">Giá cả cạnh tranh</h5>
+                        <p class="m-0">Hãy để chúng tôi đồng hành cùng bạn trong những chuyến phiêu lưu đầy thú vị và đáng nhớ!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="d-flex mb-4 mb-lg-0">
+                    <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-primary mr-3" style="height: 100px; width: 100px;">
+                        <i class="fa fa-2x fa-award text-white"></i>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <h5 class="">Dịch vụ tốt nhất</h5>
+                        <p class="m-0">Hãy để chúng tôi đồng hành cùng bạn trong những chuyến phiêu lưu đầy thú vị và đáng nhớ!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="d-flex mb-4 mb-lg-0">
+                    <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-primary mr-3" style="height: 100px; width: 100px;">
+                        <i class="fa fa-2x fa-globe text-white"></i>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <h5 class="">Bảo hiểm toàn cầu</h5>
+                        <p class="m-0">Hãy để chúng tôi đồng hành cùng bạn trong những chuyến phiêu lưu đầy thú vị và đáng nhớ!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Feature End -->
+<!-- Service Start - dịch vụ -->
+<div class="container-fluid py-5">
+    <div class="container pt-5 pb-3">
+        <div class="text-center mb-3 pb-3">
+            <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Dịch vụ</h6>
+            <h1>Dịch vụ du lịch</h1>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="service-item bg-white text-center mb-2 py-5 px-4">
+                    <i class="fa fa-2x fa-route mx-auto mb-4"></i>
+                    <h5 class="mb-2">Hướng dẫn viên du lịch</h5>
+                    <p class="m-0">Chỉ là họ sẽ có rất nhiều thời gian. Nhiều việc là nhiều việc</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="service-item bg-white text-center mb-2 py-5 px-4">
+                    <i class="fa fa-2x fa-ticket-alt mx-auto mb-4"></i>
+                    <h5 class="mb-2">Đặt vé</h5>
+                    <p class="m-0">Chỉ là họ sẽ có rất nhiều thời gian. Nhiều việc là nhiều việc</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="service-item bg-white text-center mb-2 py-5 px-4">
+                    <i class="fa fa-2x fa-hotel mx-auto mb-4"></i>
+                    <h5 class="mb-2">Đặt phòng khách sạn</h5>
+                    <p class="m-0">Chỉ là họ sẽ có rất nhiều thời gian. Nhiều việc là nhiều việc</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Service End -->
+<!-- Packages Start - gói du lịch -->
+<div class="container-fluid py-5">
+    <div class="container pt-5 pb-3">
+        <div class="text-center mb-3 pb-3">
+            <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Gói</h6>
+            <h1>Gói du lịch hoàn hảo</h1>
+        </div>
+        <div class="row">
+            @await Html.PartialAsync("_ListProductPartialView", allProduct)
+
+        </div>
+    </div>
+</div>
+<!-- Packages End -->
+<!-- Destination Start - điểm đến -->
+<div class="container-fluid py-5">
+    <div class="container pt-5 pb-3">
+        <div class="text-center mb-3 pb-3">
+            <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">ĐIỂM ĐẾN</h6>
+            <h1>Khám phá điểm đến hàng đầu</h1>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="destination-item position-relative overflow-hidden mb-2">
+                    <img class="img-fluid" src="~/assets/img/destination-1.jpg" alt="">
+                    <a class="destination-overlay text-white text-decoration-none" href="">
+                        <h5 class="text-white">Hoa kỳ</h5>
+                        <span>100 thành phố</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="destination-item position-relative overflow-hidden mb-2">
+                    <img class="img-fluid" src="~/assets/img/destination-2.jpg" alt="">
+                    <a class="destination-overlay text-white text-decoration-none" href="">
+                        <h5 class="text-white">Vương quốc Anh</h5>
+                        <span>100 thành phố</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="destination-item position-relative overflow-hidden mb-2">
+                    <img class="img-fluid" src="~/assets/img/destination-3.jpg" alt="">
+                    <a class="destination-overlay text-white text-decoration-none" href="">
+                        <h5 class="text-white">Châu úc</h5>
+                        <span>100 thành phố</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="destination-item position-relative overflow-hidden mb-2">
+                    <img class="img-fluid" src="~/assets/img/destination-4.jpg" alt="">
+                    <a class="destination-overlay text-white text-decoration-none" href="">
+                        <h5 class="text-white">Ấn độ</h5>
+                        <span>100 thành phố</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="destination-item position-relative overflow-hidden mb-2">
+                    <img class="img-fluid" src="~/assets/img/destination-5.jpg" alt="">
+                    <a class="destination-overlay text-white text-decoration-none" href="">
+                        <h5 class="text-white">Nam phi</h5>
+                        <span>100 thành phố</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="destination-item position-relative overflow-hidden mb-2">
+                    <img class="img-fluid" src="~/assets/img/destination-6.jpg" alt="">
+                    <a class="destination-overlay text-white text-decoration-none" href="">
+                        <h5 class="text-white">Indonesia</h5>
+                        <span>100 thành phố</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Destination Start -->
+<!-- Blog Start  -- bài viết-->
+<div class="container-fluid py-5">
+    <div class="container pt-5 pb-3">
+        <div class="text-center mb-3 pb-3">
+            <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Bài viết của chúng tôi</h6>
+            <h1>Bài viết mới nhất</h1>
+        </div>
+        <div class="row pb-3">
+
+            @foreach (var item in Model.news)
+            {
+                string url = $"/tintuc/{item.PostId}.html";
+                <div class="col-lg-4 col-md-6 mb-4 pb-2">
+                    <div class="blog-item">
+                        <div class="position-relative">
+                            <a href="@url">
+                                <img class="img-fluid w-100" src="~/images/news/@item.Image" alt="@item.Tile">
+                            </a>
+                            <div class="blog-date">
+                                <h6 class="font-weight-bold mb-n1">@item.CreateDate.Value.Day</h6>
+                                @*<small class="text-white text-uppercase">@item.CreateDate.Value.Month</small>*@
+                            </div>
+                        </div>
+                        <div class="bg-white p-4">
+                            <div class="d-flex mb-2">
+                                <a style=" text-transform: capitalize !important" class="text-primary text-uppercase text-decoration-none" href="">@item.Author</a>
+
+                            </div>
+                            <a class="h5 m-0 text-decoration-none" href="@url">@item.Tile</a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+</div>
+<!-- Blog End -->

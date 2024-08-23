@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+
+    <!-- Box Icons  -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Styles  -->
+    <link rel="shortcut icon" href="~/Adminssets/img/globe.png" type="image/x-icon">
+    <link href="~/Adminssets/css/style.css" rel="stylesheet" />
+
+
+
+
+</head>
+
+<body>
+    <div class="sidebar close">
+
+        <!-- ========== Logo ============  -->
+        <a href="/Admin" class="logo-box">
+            <i class='bx bx-color'></i>
+            <div class="logo-name">Du Lich</div>
+        </a>
+
+        <!-- ========== side bar ở đây ============  -->
+        @Html.Partial("_SideBarPartial")
+
+
+    </div>
+
+    <!-- ============= Home Section =============== -->
+    <section class="home">
+        <div class="toggle-sidebar">
+            <i class='bx bx-menu'></i>
+        </div>
+
+
+        <h1 style="margin-left: 20px;"></h1>
+        <!-- noi dung o day -->
+
+        @RenderBody()
+
+    
+    
+    </section>
+
+
+    </section>
+
+    <!-- Link JS -->
+    <script src="~/Adminssets/js/main.js"></script>
+
+ 
+
+
+    @await Component.InvokeAsync("Notyf");
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

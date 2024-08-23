@@ -1,0 +1,248 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<WebDuLich.Models.Product>
+
+
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Danh sách Tour" + CurrentPage;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+<style>
+    .mt-30 {
+        margin-top: 30px;
+    }
+
+    .ml-30 {
+        margin-left: 30px;
+    }
+
+    .w-100 {
+        width: 100%;
+    }
+
+    .txt-center {
+        text-align: center
+    }
+
+    .pagination {
+        display: block;
+        margin-top: 100px;
+    }
+
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+    }
+
+    .pagination a.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .pagination a:hover:not(.active) {
+        background-color: #ddd;
+    }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    input[type="text"] {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px 0 0 5px;
+        outline: none;
+    }
+
+    button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+        outline: none;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="mt-30 ml-30">
+    <a asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a>
+    <i>>></i>
+    <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Index">Danh sách Tour : page @CurrentPage</a>
+
+</div>
+
+<div class="ml-30 mt-30">
+    <div style="display:flex; justify-content:space-between;">
+        <div class="search-container">
+            <input id="keyword" name="keyword" type="text" placeholder="tìm kiếm tour...">
+            
+        </div>
+        <form  style="font-size: 18px; width: 305px;" asp-area="Admin" asp-controller="AdminProducts" asp-action="Index" method="get">
+            <select style="height:42px;" id="txtCatId" name="txtCatId" asp-items="ViewBag.DanhMuc">
+                <option selected disabled>Chọn danh mục</option>
+                <option value="">Chọn tất cả</option>
+            </select>
+        </form>
+        <button style="background-color:aquamarine; font-size:18px; width:150px;margin-right:10px">
+            <a asp-action="Create">Thêm tour mới</a>
+        </button>
+
+    </div>
+    <table class="table mt-30 w-100">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Tên sản phẩm
+                </th>
+                <th>
+                    Danh mục
+                </th>
+                <th>
+                    Địa điểm
+                </th>
+                <th>
+                    Giá
+                </th>
+                <th>
+                    Tour Trống
+                </th>
+                <th>
+                    Trạng thái
+                </th>
+
+                <th>Tùy chỉnh</th>
+            </tr>
+        </thead>
+        <tbody id="records_table">
+
+            @if (Model != null)
+            {
+                @foreach (var item in Model)
+                {
+            <tr>
+                <td class="txt-center">
+                    @item.ProductId
+                </td>
+                <td class="txt-center">
+                    @item.ProductName
+                </td>
+
+                <td class="txt-center">
+                    @item.Cat?.CatName
+                </td>
+                <td class="txt-center">
+                    @item.Address
+                </td>
+                <td class="txt-center">
+                    @string.Format("{0:#,##0} VND", item.Price)
+
+
+
+                </td>
+                <td class="txt-center">
+                    @item.StockingTour
+
+                </td>
+                <td class="txt-center">
+                    @if (item.StockingTour.HasValue && item.StockingTour.Value > 0)
+                    {
+                        <div>
+                            <span>Còn tour</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <span>Hết tour</span>
+                        </div>
+                    }
+                </td>
+
+
+                <td class="txt-center" class="txt-center">
+                    <a asp-action="Edit" asp-route-id="@item.ProductId">Sửa</a> |
+                    <a asp-action="Details" asp-route-id="@item.ProductId">Chi tiết</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProductId">Xóa</a>
+                </td>
+            </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <pager list="@Model" asp-area="Admin" asp-controller="AdminProducts" asp-route-CatID="@ViewBag.CurrentCatID" asp-action="Index" />
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            jQuery("#txtCatId").change(function () {
+                var CatId = jQuery(this).children(":selected").after("value");
+                CatId = parseFloat(CatId);
+                $('#txtCatId option')
+                    .removeAttr('selected');
+                $("#txtCatId > [value = " + CatId + "]").attr("selected", "true")
+
+                $.ajax({
+                    url: '/Admin/AdminProducts/Filtter',
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                        CatId: CatId
+                    },
+                    async: true,
+                    success: function (results) {
+                        if (results.status == "success") {
+                            window.location.href = results.redirectUrl;
+                        }
+                    },
+                    error: function (xhr) {
+                        alert("Lỗi");
+                    }
+                });
+            });
+
+            $("#keyword").keyup(function () {
+                var strkeyword = $('#keyword').val();
+                $.ajax({
+                    url: '/Admin/Search/FindProduct/',
+                    datatype: "html",
+                    type: "POST",
+                    data: { keyword: strkeyword },
+                    async: true,
+                    success: function (results) {
+                        $("#records_table").html("");
+                        $("#records_table").html(results);
+                    },
+                    error: function (xhr) {
+                        alert('lỗi');
+                    }
+                });
+            });
+        });
+    </script>
+}

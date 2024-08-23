@@ -1,0 +1,269 @@
+﻿@model WebDuLich.Models.Product
+
+@{
+    ViewData["Title"] = Model.ProductName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Product> lsProduct = ViewBag.SanPham;
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+
+<div class="container-fluid py-4">
+    <div class="container py-4">
+        <div class="row">
+
+            <div class="col-lg-8">
+                <!-- Phần sản phẩm-->
+                <div class="pb-3">
+                    <div class="blog-item">
+                        <div class="position-relative">
+                            <img id="main-image" class="img-fluid w-100" src="~/images/products/@Model.Image" alt="@Model.Title">
+                        </div>
+
+                        <div style="margin-top: 20px; margin-left: 20px;margin-right: 20px;" class="product-imgs">
+                                <div class="scroll-container">
+                                    <div class="scroll-content">
+                                        <img id="main-image" class="img-fluid w-25 thumbnail" src="~/images/products/@Model.Image" alt="@Model.Title">
+                                        @if (!string.IsNullOrEmpty(Model.Images))
+                                        {
+                                            var imageNames = Model.Images.Split(';');
+                                            foreach (var imageName in imageNames)
+                                            {
+
+                                                <img class="img-fluid w-25 thumbnail" src="~/images/dtproducts/@imageName" alt="@Model.ProductName">}
+                                        }
+
+                                    </div>
+                                </div>
+                         </div>
+                        
+
+
+                    </div>
+                    <div class="bg-white mb-3" style="padding: 30px;">
+
+                        <div class="product-details">
+                            <div class="dp-flex">
+                                <div class="description-tab tab  active" onclick="toggleTab('description')">Mô tả</div>
+
+                                <div class="info-tab dp-flex tab" onclick="toggleTab('info')">Thông tin</div>
+                            </div>
+                            <div class="description-content content active">
+                                <!-- Thêm nội dung mô tả ở đây -->
+                                <p>
+                                    @Html.Raw(Model.Description)
+                                </p>
+                            </div>
+                            <div class="info-content content">
+                                <!-- Thêm thông tin sản phẩm ở đây -->
+                                <p>Các nội dung tùy chỉnh viết ở đây</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+
+            @*chi tiết tour*@
+            <div class="col-lg-4 mt-5 mt-lg-0">
+                <!-- Gia ca -->
+                <div class="d-flex flex-column  bg-white mb-5 py-5 px-4">
+                    <span style="font-size:22px;color:black; font-weight:bold" class="mb-3">
+                        @Model.ProductName
+                        <!-- <a href="">Hà Nội - Đền Ông Hoàng Bảy - Sapa</a> -->
+                    </span>
+                    <span style="font-weight:bold; font-size:20px" class="text-primary">@Model.Price.Value.ToString("#,##0") VND</span>
+                    <p style="margin-top:10px">
+                        <i class="fa-solid fa-location-dot text-primary"></i>
+                        @Model.Address
+                    </p>
+                    <p>
+                        <i class="fa-regular fa-clock"></i>
+                        @Model.Title
+                    </p>
+                    @*<p>
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <label for="ngayDi">Chọn ngày đi:</label>
+                            <input type="date" id="ngayDi" name="ngayDi">
+                        </p>*@
+                    <div class="counter">
+
+
+                        <li style="list-style:none" class="add-to-cart">
+                            <button href="" class="btn btn-primary ">Thêm vào giỏ hàng</button>
+                            <input hidden asp-for="ProductId" />
+                        </li>
+                    </div>
+                    <div class="product-service">
+                        <h6 style="margin-top: 10px;">Dịch vụ đính kèm:</h6>
+                        <span style="display: block;">
+                            <i class="fa-solid fa-check text-primary"></i>
+                            Đưa đón miễn phí
+                        </span>
+                        <span style="display: block;">
+                            <i class="fa-solid fa-check text-primary"></i>
+                            Bảo hiểm an toàn
+                        </span>
+                        <span style="display: block;">
+                            <i class="fa-solid fa-check text-primary"></i>
+                            Ăn uống miễn phí
+                        </span>
+
+                    </div>
+                    <div class="product-service">
+                        <h6 style="margin-top: 10px;">
+                            Danh mục:
+                            <a href="/@Model.Cat.CatId">@Model.Cat.CatName</a>
+                        </h6>
+                    </div>
+
+
+                </div>
+
+                <!-- Search Form -->
+                <div class="mb-5">
+                    <div class="bg-white" style="padding: 30px;">
+                        <form asp-action="Search" method="get" class="form-inline">
+                            <div class="input-group">
+                                <input type="text" name="prname" class="form-control p-4" placeholder="Nhập địa Điểm">
+                                <div class="input-group-append">
+                                    <button class="input-group-text bg-primary border-primary text-white">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Các tour mới nhất -->
+                <div class="mb-5">
+                    <h4 class="text-uppercase mb-4" style="letter-spacing: 5px;">Các tour mới nhất</h4>
+                    @if (lsProduct != null)
+                    {
+                        foreach (var item in lsProduct)
+                        {
+                            string url = $"/{item.ProductId}.html";
+                            <a class="d-flex align-items-center text-decoration-none bg-white mb-3" href="@url">
+                                <img style="width: 100px; height: 80px;" class="img-fluid" src="~/images/products/@item.Image" alt="@item.Title">
+                                <div class="pl-3">
+                                    <h6 class="m-1">@item.ProductName</h6>
+                                    <small>@item.Price.Value.ToString("#,##0") VND</small>
+                                </div>
+
+                            </a>
+
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .booking {
+        display: none;
+    }
+    img {
+        width: 100%;
+        vertical-align: middle;
+        border-style: none;
+    }
+</style>
+
+<script>
+    //  <!-- tăng giảm số người tham gia + đặt tour -->
+    function increase() {
+        var input = document.getElementById('quantity');
+        var value = parseInt(input.value, 10);
+        input.value = isNaN(value) ? 1 : value + 1;
+    }
+
+    function decrease() {
+        var input = document.getElementById('quantity');
+        var value = parseInt(input.value, 10);
+        input.value = isNaN(value) ? 1 : Math.max(value - 1, 1);
+    }
+
+    function bookTour() {
+        var quantity = document.getElementById('quantity').value;
+        alert("Bạn đã đặt " + quantity + " tour.");
+    }
+
+    //   ảnh sản phẩm
+    document.addEventListener("DOMContentLoaded", function () {
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        const mainImage = document.getElementById('main-image');
+
+        thumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', function () {
+                mainImage.src = this.src;
+            });
+        });
+    });
+    // thông tin sản phẩm
+
+    function toggleTab(tabName) {
+        // Tìm tất cả các tab và content
+        const tabs = document.querySelectorAll('.tab');
+        const contents = document.querySelectorAll('.content');
+
+        // Ẩn tất cả các content
+        contents.forEach(content => {
+            content.classList.remove('active');
+        });
+
+        // Ẩn tất cả các tab
+        tabs.forEach(tab => {
+            tab.classList.remove('active');
+        });
+
+        // Hiển thị content tương ứng với tab được click và đánh dấu tab đó là active
+        const contentToShow = document.querySelector(`.${tabName}-content`);
+        const tabToShow = document.querySelector(`.${tabName}-tab`);
+
+        contentToShow.classList.add('active');
+        tabToShow.classList.add('active');
+    }
+
+
+</script>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $(".add-to-cart").click(function () {
+                    var productid = $('#ProductId').val();
+                    var SoLuong = $('#txtsoLuong').val();
+                    $.ajax({
+                        url: '/api/cart/add',
+                        type: "POST",
+                        dataType: "JSON",
+                        data: {
+                            productID: productid,
+                            amount: SoLuong
+                        },
+                        success: function (response) {
+                            if (response.result == 'Redirect') {
+                                window.location = response.url;
+                            }
+                            else {
+                                loadHeaderCart();
+                                location.reload();
+                            }
+                        },
+                        error: function (error) {
+                            alert("There was an error posting the data to server: " + error.responseText);
+                        }
+                    });
+                });
+            });
+
+            function loadHeaderCart() {
+                $("#miniCart").load("/AjaxContent/HeaderCart");
+                $("#NumberCart").load("/AjaxContent/NumberCart");
+            }
+
+        })
+
+    </script>
+}

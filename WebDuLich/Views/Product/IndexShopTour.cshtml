@@ -1,0 +1,83 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.PagedList<WebDuLich.Models.Product>
+@*@model PagedList.Core.IPagedList<WebDuLich.Models.Product>*@
+
+@{
+    ViewData["Title"] = "Shop - " + ViewBag.CurrentPage;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int PageCurrent = ViewBag.CurrentPage;
+    int PageNext = PageCurrent + 1;
+}
+
+
+
+<div style="margin-top:50px" class="container-fluid">
+    <div class="container pb-3">
+        <div class="text-center mb-3 pb-3">
+
+            <h1 style="color: #7AB730">Danh sách gói du lịch</h1>
+        </div>
+        <div class="row">
+            <div class="w-25">
+                <h4 style="" class="text-primary">Danh mục</h4>
+                <ul style="list-style: none; padding: 0; margin-top: 20px;">
+                    <li class="fz-18 ">
+                        <a class="text-dark" href="/">Trang chủ</a>
+                    </li>
+                    <li class="fz-18"><a class="text-dark" href="/gioi-thieu.html">Giới thiệu</a></li>
+                    <li class="fz-18"><a class="text-dark" href="/shop.html">Tours</a></li>
+                    <li class="fz-18"><a class="text-dark" href="/blogs.html">Bài viết</a></li>
+                    <li class="fz-18"><a class="text-dark" href="/lien-he.html">Liên hệ</a></li>
+                </ul>
+            </div>
+            <div class=" w-75 ">
+                <div style="justify-content: space-between;" class="dp-flex">
+                    <h4>Tour nổi bật</h4>
+                    <div>
+                        <span>Sắp sếp theo:</span>
+                        <select name="sort-by" id="sort-by">
+                            <option value="name">Theo Tên A -> Z</option>
+                            <option value="price">Theo Giá</option>
+                            <option value="newest">Mới Nhất</option>
+                            <option value="oldest">Cũ Nhất</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="margin-top: 20px;" class="row dp-flex">
+                    @if (Model != null && Model.Count() > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            string url = $"/{item.ProductId}.html";
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="package-item bg-white mb-2">
+                                    <a href="@url"><img class="img-fluid" src="~/images/products/@item.Image" alt="@item.Image"></a>
+                                    <div class="p-4">
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <small class="m-0"><i class="fa fa-map-marker-alt text-primary mr-2"></i>@item.Address</small>
+
+                                            <small class="m-0"><i class="fa fa-user text-primary mr-2"></i>@item.ShortDesc</small>
+                                        </div>
+                                        <a class="h5 text-decoration-none" href="@url">@item.ProductName</a>
+                                        <div class="border-top mt-4 pt-4">
+                                            <div style="margin-top:-20px" class="d-flex justify-content-between">
+
+                                                <h5 class="m-0"> @item.Price.Value.ToString("#,##0") VND</h5>
+
+                                            </div>
+                                            <button style="display:block; margin-top:10px; border-radius:5px" class="btn btn-primary "><a style="color:white" href="@url">Xem chi tiết</a></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

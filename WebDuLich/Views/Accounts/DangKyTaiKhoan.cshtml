@@ -1,0 +1,95 @@
+﻿@model WebDuLich.ModelViews.RegisterVM
+
+@{
+    ViewData["Title"] = "Đăng Ký Tài Khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Tải jQuery trước -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Sau đó tải datetimepicker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+
+
+<style>
+    .booking {
+        display: none;
+    }
+</style>
+<!-- đăng kí -->
+<div class="container-fluid py-4">
+    <div class="container py-4">
+        <div class="row">
+            <div class="form-container">
+                <div class="register-container">
+                    <h2>Đăng ký tài khoản</h2>
+                    <form asp-action="DangKyTaiKhoan">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="text" asp-for="FullName" placeholder="Họ và tên" required>
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+
+                        <input type="email" asp-for="Email" placeholder="Email..." required>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+
+                        <input type="tel" asp-for="Phone" placeholder="Số điện thoại" required>
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+
+                        <div class="password-container">
+                            <input type="password" asp-for="Password" placeholder="Mật khẩu" id="password" required>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <i class="toggle-password" onclick="togglePasswordVisibility('password')">👁️</i>
+                        </div>
+
+                        <div class="password-container">
+                            <input type="password" asp-for="ConfirmPassword" placeholder="Nhập lại mật khẩu" id="confirmPassword" required>
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            <i class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')">👁️</i>
+                        </div>
+
+                        @*<input type="password" asp-for="Password" placeholder="Mật khẩu" required>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+
+                            <input type="password" asp-for="ConfirmPassword" placeholder="Nhập lại mật khẩu" required>
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>*@
+                        <button type="submit">Đăng ký</button>
+                    </form>
+                    <p style="margin-top: 10px;">
+                        <a style="color: blue;" href="/dang-nhap.html">Đã có tài khoản? Đăng nhập ngay</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function togglePasswordVisibility(id) {
+        var passwordField = document.getElementById(id);
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    }
+</script>
+<style>
+    .password-container {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+
+        .password-container input {
+            padding-right: 30px; /* Make space for the eye icon */
+        }
+
+    .toggle-password {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+</style>

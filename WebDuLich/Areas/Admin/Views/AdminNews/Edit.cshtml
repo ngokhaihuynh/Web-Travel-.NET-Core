@@ -1,0 +1,138 @@
+﻿@model WebDuLich.Models.News
+
+@{
+    ViewData["Title"] = "Chỉnh sửa tin tức";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<div style="margin-left:30px;">
+    <h1 style="font-weight:500">Chỉnh sửa trang: @Model.Tile</h1>
+
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit" asp-route-id="@Model.PostId" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="PostId" />
+                <input type="hidden" asp-for="Image" />
+                <input type="hidden" asp-for="CreateDate" />
+                <div class="form-group">
+                    <label asp-for="Tile" class="control-label">Tiêu đề:</label>
+                    <input asp-for="Tile" class="form-control" />
+                    <span asp-validation-for="Tile" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ShortContent" class="control-label">Nội dung ngắn</label>
+                    <input asp-for="ShortContent" class="form-control" />
+                    <span asp-validation-for="ShortContent" class="text-danger"></span>
+                </div>
+
+                <div style="width:90%" class="form-group">
+                    <label asp-for="Contents" class="control-label">Nội dung:</label>
+                    <textarea asp-for="Contents" id="txtContent" class="form-control">@Model.Contents</textarea>
+                    <span asp-validation-for="Contents" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Image" class="control-label">Ảnh đại diện:</label>
+                    <input asp-for="Image" name="fImage" type="file" class="form-control">
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Publish" class="control-label">Trạng thái:</label>
+                    <input asp-for="Publish" class="form-control" />
+                    <span asp-validation-for="Publish" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CreateDate" class="control-label">Ngày tạo:</label>
+                    <input asp-for="CreateDate" class="form-control" />
+                    <span asp-validation-for="CreateDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Author" class="control-label">Tác giả:</label>
+                    <input asp-for="Author" class="form-control" />
+                    <span asp-validation-for="Author" class="text-danger"></span>
+                </div>
+                @*<div class="form-group">
+                    <label asp-for="CatId" class="control-label"></label>
+                    <select asp-for="CatId" class="form-control" asp-items="ViewBag.CatId"></select>
+                    <span asp-validation-for="CatId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AccId" class="control-label"></label>
+                    <select asp-for="AccId" class="form-control" asp-items="ViewBag.AccId"></select>
+                    <span asp-validation-for="AccId" class="text-danger"></span>
+                </div>*@
+                <div class="form-group">
+                    <label asp-for="Tags" class="control-label"></label>
+                    <input asp-for="Tags" class="form-control" />
+                    <span asp-validation-for="Tags" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IsHot" class="control-label"></label>
+                    <input asp-for="IsHot" class="form-control" />
+                    <span asp-validation-for="IsHot" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IsNewFeed" class="control-label"></label>
+                    <input asp-for="IsNewFeed" class="form-control" />
+                    <span asp-validation-for="IsNewFeed" class="text-danger"></span>
+                </div>
+                @*<div class="form-group">
+                    <label asp-for="MetaDesc" class="control-label"></label>
+                    <input asp-for="MetaDesc" class="form-control" />
+                    <span asp-validation-for="MetaDesc" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MetaKey" class="control-label"></label>
+                    <input asp-for="MetaKey" class="form-control" />
+                    <span asp-validation-for="MetaKey" class="text-danger"></span>
+                </div>*@
+                <div class="form-group">
+                    <label asp-for="Views" class="control-label"></label>
+                    <input asp-for="Views" class="form-control" />
+                    <span asp-validation-for="Views" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Lưu thay đổi" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Quay lại</a>
+    </div>
+</div>
+
+
+
+<style>
+    .control-label {
+        display: block;
+        margin-top: 20px;
+    }
+
+    .form-control {
+        width: 90%;
+    }
+</style>
+@section Scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
+    <script>
+
+        ClassicEditor
+            .create(document.querySelector('#txtContent'), {
+                // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(err => {
+                console.error(err.stack);
+            });
+    </script>
+}  

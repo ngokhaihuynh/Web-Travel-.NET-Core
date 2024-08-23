@@ -1,0 +1,68 @@
+﻿@model IEnumerable<WebDuLich.Models.Product>
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+@*<h1>Tìm kiếm tour</h1>
+    <form asp-action="Search" method="get" class="form-inline">
+        Nhập tên tour: <input type="text" name="prname" /> giá từ:<input type="number" name="to" /> Đến:<input type="number" name="from" /><button>Tìm</button>
+    </form>*@
+
+
+<div class="container-fluid booking mt-5 pb-5">
+    <div class="container pb-5">
+        <div class="bg-light shadow" style="padding: 30px;">
+
+            <h2 style="text-align:center">Kết quả tìm kiếm</h2>
+            <table style="margin-top:50px" class="table">
+
+                <thead>
+                    <tr>
+                        <th>
+                            Hình ảnh
+                        </th>
+                        <th>
+                            Tên tour
+                        </th>
+                        <th>
+                            Giá tour
+                        </th>
+                        <th>
+                            Địa điểm
+                        </th>
+                        <!-- Các cột khác -->
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        string url = $"/{item.ProductId}.html";
+                        <tr>
+                            <td>
+                                <a href="@url">  <img width="100" src="/images/products/@item.Image" alt="@item.ProductName" /></a>
+                            </td>
+                            <td>
+                                <a style="color:black" href="@url">  @Html.DisplayFor(modelItem => item.ProductName)</a>
+                            </td>
+                            <td>
+                                @*@Html.DisplayFor(modelItem => item.Price)*@
+                                @item.Price.Value.ToString("#,##0") VND
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <!-- Các cột khác -->
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<style>
+    .container {
+        margin-top: 100px;
+    }
+</style>

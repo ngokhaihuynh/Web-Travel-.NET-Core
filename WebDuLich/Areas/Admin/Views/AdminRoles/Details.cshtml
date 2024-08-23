@@ -1,0 +1,60 @@
+﻿@model WebDuLich.Models.Role
+
+@{
+    ViewData["Title"] = "Chi tiết tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div style="margin-left:30px">
+    <a asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a>
+    <i>>></i>
+    <a asp-area="Admin" asp-controller="AdminRoles" asp-action="Index">Danh sách quyền truy cập</a>
+    <i>>></i>
+    <span>Thông tin quyền truy cập</span>
+</div>
+
+
+<div style="margin-left:20px;">
+    <h1>Chi tiết tài khoản</h1>
+
+    <table style="width: 100%; margin-top: 30px; border-collapse: collapse; border: 1px solid dashed" class="table">
+        <thead>
+            <tr>
+                <th style=" border: 1px solid black;">
+                    @*@Html.DisplayNameFor(model => model.RoleId)*@
+                    ID
+                </th>
+                <th style=" border: 1px solid black;">
+                    Tên tài khoản
+                </th>
+                <th style=" border: 1px solid black;">
+                    Loại tài khoản
+                </th>
+                <th style=" border: 1px solid black;">Tùy chỉnh</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td style="text-align: center; border: 1px solid black;">
+                    @Html.DisplayFor(model => model.RoleId)
+                </td>
+                <td style="text-align: center; border: 1px solid black;">
+                    @Html.DisplayFor(model => model.RoleName)
+                </td>
+                <td style="text-align: center; border: 1px solid black;">
+                    @Html.DisplayFor(model => model.Description)
+                </td>
+
+                <td style="text-align: center; border: 1px solid black;">
+                    <a asp-action="Edit" asp-route-id="@Model.RoleId">Sửa</a> |
+                    <a asp-action="Index">Quay lại</a>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>
+

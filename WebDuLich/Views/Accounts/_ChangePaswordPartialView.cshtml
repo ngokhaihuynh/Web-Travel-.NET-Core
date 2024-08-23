@@ -1,0 +1,68 @@
+﻿@model WebDuLich.ModelViews.ChangePasswordViewModel
+
+    <!-- Tải jQuery trước -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Sau đó tải datetimepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+
+
+    <div>
+
+        <form asp-controller="Accounts" asp-action="ChangePassword" method="post">
+            <div class="password-container">
+                <input type="password" asp-for="PasswordNow" placeholder="Mật khẩu hiện tại" id="passwordNow" required>
+                <i class="toggle-password" onclick="togglePasswordVisibility('passwordNow')">👁️</i>
+            </div>
+            <div class="password-container">
+                <input type="password" asp-for="Password" placeholder="Mật khẩu mới" id="password" required>
+                <i class="toggle-password" onclick="togglePasswordVisibility('password')">👁️</i>
+            </div>
+            <div class="password-container">
+                <input type="password" asp-for="ConfirmPassword" placeholder="Nhập lại mật khẩu mới" id="confirmPassword" required>
+                <i class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')">👁️</i>
+            </div>
+            <button type="submit">Lưu thay đổi</button>
+        </form>
+
+
+        @*<form asp-controller="Accounts" asp-action="ChangePassword" method="post">
+            <input type="password" asp-for="PasswordNow" placeholder="Mật khẩu hiện tại" required>
+            <input type="password" asp-for="Password" placeholder="Mật khẩu mới" required>
+            <input type="password" asp-for="ConfirmPassword" placeholder="Nhập lại mật khẩu mới" required>
+            <button type="submit">Lưu thay đổi</button>
+        </form>*@
+
+    </div>
+
+    <script>
+        function togglePasswordVisibility(id) {
+            var passwordField = document.getElementById(id);
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+   
+        <style>
+            .password-container {
+                position: relative;
+            display: inline-block;
+            margin-bottom: 10px; /* Add some space between input fields */
+        }
+
+            .password-container input {
+                padding - right: 30px; /* Make space for the eye icon */
+        }
+
+            .toggle-password {
+                position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        </style>
+
